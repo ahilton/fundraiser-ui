@@ -5,3 +5,53 @@
 .loader-60devs .loader-60devs-progress {
     height: 3px;
 }
+
+.dollar {
+    /*color: #E99F86*/
+    color:#DE5021;
+    opacity:0.7;
+}
+
+.softFontRed {
+    color:#DE5021;
+    opacity:0.7;
+}
+.softFontBlue {
+    color:#207EA9;
+    opacity:1;
+}
+
+.example-twitter {
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 40px;
+    -webkit-margin-end: 40px;
+    position: relative;
+    padding: 15px;
+    margin: 20px 0 0.5em;
+    color: #333;
+    background: #eee;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+.example-twitter:before {
+    /*content: url(twitter-logo.gif);*/
+    position: absolute;
+    top: -60px;
+    left: 0;
+    width: 155px;
+    height: 36px;
+    display: block;
+}
+.example-twitter:after {
+    content: "";
+    position: absolute;
+    top: -30px;
+    left: 50px;
+    border: 15px solid transparent;
+    border-bottom-color: #eee;
+    display: block;
+    width: 0;
+}

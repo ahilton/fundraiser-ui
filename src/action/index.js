@@ -1,67 +1,52 @@
-export const ORDER_LAST_EVENT_UPDATE = 'ORDER_LAST_EVENT_UPDATE'
-export const ORDER_RESET = 'ORDER_RESET'
-export const ORDER_COMPLETED_ORDERS_UPDATE = 'ORDER_COMPLETED_ORDERS_UPDATE'
-export const ORDER_STICKY_SELECT = 'ORDER_STICKY_SELECT'
+export const DONATION_START_TOTAL = 'DONATION_START_TOTAL'
+export const DONATION_CURRENT_TOTAL = 'DONATION_CURRENT_TOTAL'
+export const LAST_DONATIONS = 'LAST_DONATIONS'
+export const LAST_DONATION_PROCESSED_ID = 'LAST_DONATION_PROCESSED_ID'
 
-export const PRICE_TICK = 'PRICE_TICK'
-export const ENABLE_PRICE_TICK = 'ENABLE_PRICE_TICK'
-export const DISABLE_PRICE_TICK = 'DISABLE_PRICE_TICK'
+export const FUNDRAISER_TARGET = 'FUNDRAISER_TARGET'
 
-export const WEB_CHAT_TOGGLE = 'WEB_CHAT_TOGGLE'
-export const BLOTTER_TOGGLE = 'BLOTTER_TOGGLE'
-export const BLOTTER_SELECT = 'BLOTTER_SELECT'
+export const FUNDRAISER_TOTAL = 'FUNDRAISER_TOTAL'
 
-export const PUSH_CHANNEL_EVENT = 'PUSH_CHANNEL_EVENT'
+export const RESET_DONATION_TOTAL = 'RESET_DONATION_TOTAL'
+export const SHOW_DONATION = 'SHOW_DONATION'
+export const DISPLAY_MODE = 'DISPLAY_MODE'
+export const RESET_DISPLAY_MODE = 'RESET_DISPLAY_MODE'
 
-export const lastEventUpdate = (lastEvent) => {
-    return {
-        type:ORDER_LAST_EVENT_UPDATE,
-        data:lastEvent
-    }
+export const resetDonationTotal = () => {
+    return {type: RESET_DONATION_TOTAL}
 }
 
-export const completedOrdersUpdate = (completedOrders) => {
-    return {
-        type:ORDER_COMPLETED_ORDERS_UPDATE,
-        data:completedOrders
-    }
+export const fundraiserTotal = (total) => {
+    return {type: FUNDRAISER_TOTAL, total: total}
+}
+export const fundraiserTarget = (total) => {
+    return {type: FUNDRAISER_TARGET, total: total}
+}
+export const donationStartTotal = (total) => {
+    return {type: DONATION_START_TOTAL, total: total}
+}
+export const donationCurrentTotal = (total) => {
+    return {type: DONATION_CURRENT_TOTAL, total: total}
 }
 
-export const reset = () => {return {type:ORDER_RESET}}
-
-export const webChatToggle = () => {return {type:WEB_CHAT_TOGGLE}}
-
-export const blotterToggle = () => {return {type:BLOTTER_TOGGLE}}
-
-export const blotterSelect = (selected) => {return {type:BLOTTER_SELECT, selected: selected}}
-
-export const clearLastOrder = () => {return lastEventUpdate(null)}
-
-export const pushChannelEvent = (message, key, conversationId, userId, userName) => {
-    return {
-        type:PUSH_CHANNEL_EVENT,
-        message:message,
-        key: key,
-        conversationId: conversationId,
-        userId: userId,
-        userName: userName
-    }
+export const lastDonations = (donations) => {
+    return {type: LAST_DONATIONS, donations: donations}
+}
+export const lastDonationProcessedId = (id) => {
+    return {type: LAST_DONATION_PROCESSED_ID, id: id}
 }
 
-export const stickySelect = (data) => {
+export const showDonation = (donation, isNew) => {
     return {
-        type:ORDER_STICKY_SELECT,
-        data:data
+        type: SHOW_DONATION, data: {
+            donation: donation,
+            isNew: isNew
+        }
     }
 }
-
-export const priceTick = (price) => {
-    return {
-        type:PRICE_TICK,
-        price:price
-    }
+export const resetDisplayMode = () => {
+    return {type: RESET_DISPLAY_MODE}
 }
-
-export const disablePriceTick = () => {return {type:DISABLE_PRICE_TICK}}
-
-export const enablePriceTick = () => {return {type:ENABLE_PRICE_TICK}}
+export const displayMode = (displayMode) => {
+    return {type: DISPLAY_MODE, displayMode: displayMode}
+}

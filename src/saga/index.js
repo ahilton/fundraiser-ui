@@ -1,9 +1,9 @@
 import {call} from 'redux-saga/effects'
 
-import orderSagaRoot from './orderSaga'
+import fundingSagaRoot from './fundingSaga'
 
 export default function* root () {
     yield [
-        call(orderSagaRoot)
+        call(fundingSagaRoot)
     ]
 }

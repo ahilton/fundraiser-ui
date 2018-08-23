@@ -1,13 +1,13 @@
 import {combineReducers} from 'redux'
-import order, {orderInitialState} from './order'
-import settings, {settingsInitialState} from "./settings";
+import funding, {fundingInitialState} from './funding'
+// import settings, {settingsInitialState} from "./settings";
 
 export default combineReducers({
-    order,
-    settings
+    funding
+    // , settings
 })
 
 export const initialState={
-    order: orderInitialState,
-    settings: settingsInitialState
+    funding: fundingInitialState
+    // , settings: fundingInitialState
 }
