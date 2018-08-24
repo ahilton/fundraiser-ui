@@ -112,6 +112,8 @@ function* processEvents() {
         var lastD = state.lastDonations[i]
         // console.log(lastD)
         if (!state.processedDonations[lastD.donationId]) {
+            yield put(displayMode('fireworks'))
+            yield call(delay, 8000)
             yield put(showDonation(lastD, true))
             // yield call(delay, 4000)
             yield call(waitOnPage)

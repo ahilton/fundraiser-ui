@@ -18,6 +18,7 @@ import Ticker from "./components/Ticker";
 import Donation from "./components/Donation";
 import Takings from "./components/Takings";
 import Thanks from "./components/Thanks";
+import FireworksContainer from "./components/FireworksContainer";
 
 class App extends Component {
 
@@ -47,6 +48,7 @@ class App extends Component {
         var showDonation = (showDonationData && displayMode && displayMode === 'donation')
         var showTakings = (displayMode && displayMode === 'takings')
         var showThanks = (displayMode && displayMode === 'thanks')
+        var showFireworks = (displayMode && displayMode === 'fireworks')
         // console.log(showDonationData)
 
         return (
@@ -62,14 +64,16 @@ class App extends Component {
                 //vb 207EA9 //vg 2B7C74 //vr 943616 //vy 9E8C28
             }}>
 
-                {!showDonation && !showTakings && !showThanks && <Balloon style={{
+                {!showDonation && !showTakings && !showThanks && !showFireworks && <Balloon style={{
                     position:'absolute',
                     top:50,
                     left:60,
                     opacity: 0.8
                 }}/>}
 
-                <div style={{
+                {showFireworks && <FireworksContainer/>}
+
+                {!showFireworks && <div style={{
                     display: 'flex',
                     flex: 1,
                     alignItems: 'center', // vertical
@@ -101,7 +105,7 @@ class App extends Component {
                             //fontWeight:'100'
                         }}><b>avas</b>journey.com.au</div>
                     </Footer>
-                </div>
+                </div>}
 
             </div>
         );
