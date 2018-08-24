@@ -2,14 +2,9 @@
 import React, {Component} from 'react';
 
 import posed from "react-pose";
-import Progress from "./Progress";
-
-// import { Colors, Icon } from "@blueprintjs/core";
-// import {Box, Flex} from "reflexbox";
-// import StockCard from "./StockCard";
 
 
-export default class Donation extends Component {
+export default class Takings extends Component {
 
     render() {
 
@@ -27,25 +22,23 @@ export default class Donation extends Component {
             }
         })
 
-        var {showDonationData} = this.props
-        var {name, amount, message, time} = showDonationData.donation
-        amount = amount.replace("$", "")
-        var title = showDonationData.isNew?"New Online Donation!":"Recent Online Donation"
-        var timeAgo =showDonationData.isNew?"":time
+        var {takings} = this.props
+
         return (
             <div style={{textAlign: 'center'}}>
                 <div className="softFontBlue" style={{
                     fontSize:50,
                     marginBottom:30
-                }}>
-                    {title}
-                    <div className="softFontRed">
-                        <b style={{
-                            fontSize:30
-                        }}>{timeAgo}</b>
-                    </div>
+                }}> Community Event Takings
                 </div>
-
+                <div style={{
+                    color:'#E99F86',
+                    marginTop:30
+                }}>
+                            <span className="pt-icon-standard pt-icon-bank-account" style={{
+                                fontSize:80
+                            }}/>
+                </div>
                 <Notify style={this.props.style}
                         initialPose={'bottom'}
                         pose={'top'}
@@ -59,7 +52,7 @@ export default class Donation extends Component {
                         </span>
                         <b style={{
                             fontSize: 140
-                        }}>{amount.toLocaleString()}</b>
+                        }}>{takings.toLocaleString()}</b>
 
                     </div>
 
@@ -67,16 +60,9 @@ export default class Donation extends Component {
                         fontSize:50,
                         marginBottom:20
                     }}>
-                        {name}
+                        {/*{name}*/}
                     </div>
-                    {message && <div className='softFontBlue example-twitter' style={{
-                        fontFamily:'journal',
-                        fontSize:35,
-                        fontStyle: 'italic',
-                        width:600
-                    }}>
-                        {message}
-                    </div>}
+
                 </Notify>
             </div>
         )

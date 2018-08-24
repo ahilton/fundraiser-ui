@@ -16,6 +16,8 @@ import Footer from "./components/Footer";
 import Balloon from "./components/Balloon";
 import Ticker from "./components/Ticker";
 import Donation from "./components/Donation";
+import Takings from "./components/Takings";
+import Thanks from "./components/Thanks";
 
 class App extends Component {
 
@@ -40,11 +42,11 @@ class App extends Component {
         var total = donationTotal + fundraiserTotal
 
         var safeFundraiserTarget = (fundraiserTarget && fundraiserTarget>1)?fundraiserTarget:10000
-        console.log('fundraiserTotal:'+safeFundraiserTarget)
 
         var fundraiserPct = (total >= fundraiserTarget) ? 100 : Math.round((total / safeFundraiserTarget)* 100)
-        console.log('fndpct:'+fundraiserPct)
         var showDonation = (showDonationData && displayMode && displayMode === 'donation')
+        var showTakings = (displayMode && displayMode === 'takings')
+        var showThanks = (displayMode && displayMode === 'thanks')
         // console.log(showDonationData)
 
         return (
@@ -60,11 +62,11 @@ class App extends Component {
                 //vb 207EA9 //vg 2B7C74 //vr 943616 //vy 9E8C28
             }}>
 
-                {!showDonation && <Balloon style={{
+                {!showDonation && !showTakings && !showThanks && <Balloon style={{
                     position:'absolute',
                     top:50,
                     left:60,
-                    opacity: 0.6
+                    opacity: 0.8
                 }}/>}
 
                 <div style={{
@@ -74,13 +76,18 @@ class App extends Component {
                     justifyContent: 'center', //horizontal
                     flexDirection: 'column'
                 }}>
-                    {!showDonation && <Ticker {...{
+                    {!showDonation && !showTakings && !showThanks && <Ticker {...{
                         fundraiserTotal:total,
                         fundraiserTarget:fundraiserTarget,
                         fundraiserPct:fundraiserPct
                     }}/>}
                     {showDonation && <Donation {...{
                         showDonationData:showDonationData
+                    }}/>}
+                    {showTakings && <Takings {...{
+                        takings:fundraiserTotal
+                    }}/>}
+                    {showThanks && <Thanks {...{
                     }}/>}
                     <Footer {...{
                         lastSystemMessage:""

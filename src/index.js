@@ -18,7 +18,7 @@ let store = createStore(
     initialState,
     composeWithDevTools(
         applyMiddleware(sagaMiddleware),
-        // autoRehydrate()
+        autoRehydrate()
     )
 )
 

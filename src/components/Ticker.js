@@ -15,15 +15,8 @@ export default class Ticker extends Component {
 
         var {fundraiserTotal, fundraiserTarget, fundraiserPct} = this.props
 
-        const Square = posed.div({
-            // hoverable: true,
-            // pressable: true,
-            // init:{
-            //     y: 100,
-            // },
-            // idle: {
-            //     y:0
-            // }
+        const Animate = posed.div({
+
             above: {
                 opacity:0,
                 y: -500
@@ -32,45 +25,21 @@ export default class Ticker extends Component {
                 opacity:1,
                 y:0
             }
-            // ease: easing.backOut,
-            // flip: Infinity
-            // hover:{
-            //     scale: 2,
-            // },
-            // idle: {
-            //     scale: 1,
-            //     transition: {
-            //         type: 'physics',
-            //         delay: 400,
-            //         duration: 7000
-            //     }
-            // },
-            // hovered: {
-            //     scale: 1.5,
-            //     transition: {
-            //         type: 'physics',
-            //         delay: 400,
-            //         duration: 7000
-            //     }
-            // }
         })
 
         return (
            <div style={{textAlign: 'center'}}>
-            <Square style={this.props.style}
-                    initialPose={'above'}
-                    pose={'normal'}
-            >
+
                 <div className="softFontBlue" style={{
                     fontSize:50,
                     marginBottom:50
                 }}>
-                    {/*<span className="pt-icon-standard pt-icon-bank-account"*/}
-                        {/*style={{fontSize:50}}*/}
-                    {/*/> */}
+
                     Amount Raised <b>Today</b>
                 </div>
-
+               <Animate initialPose={'above'}
+                        pose={'normal'}
+               >
                 <div style={{
                     fontSize: 90,
                     marginLeft: -50
@@ -84,13 +53,13 @@ export default class Ticker extends Component {
                     {/*{this.props.highlightDonation && this.highlightDonation()}*/}
 
 
-                    {/*<Thermometer/>*/}
                 </div>
-                <Progress {...{
+               </Animate>
+
+               <Progress {...{
                     fundraiserTarget: fundraiserTarget,
                     fundraiserPct: fundraiserPct
                 }}/>
-            </Square>
            </div>
         )
     }

@@ -8,7 +8,9 @@ import {
     RESET_DONATION_TOTAL,
     SHOW_DONATION,
     DISPLAY_MODE,
-    RESET_DISPLAY_MODE
+    RESET_DISPLAY_MODE,
+    NEXT_DISPLAY_MODE,
+    RESET_NEXT_DISPLAY_MODE
 } from '../action'
 
 export const fundingInitialState = {
@@ -20,7 +22,8 @@ export const fundingInitialState = {
     fundraiserTotal:0,
     fundraiserTarget:10000,
     showDonationData:null,
-    displayMode:null
+    displayMode:null,
+    nextDisplayMode:null
 }
 
 export const getFundingState = state => state.funding
@@ -56,6 +59,16 @@ const funding = (state = fundingInitialState, action) => {
             return {
                 ...state,
                 displayMode: action.displayMode
+            }
+        case RESET_NEXT_DISPLAY_MODE:
+            return {
+                ...state,
+                nextDisplayMode: null
+            }
+        case NEXT_DISPLAY_MODE:
+            return {
+                ...state,
+                nextDisplayMode: action.displayMode
             }
         case DONATION_START_TOTAL:
             return {

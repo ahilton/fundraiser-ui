@@ -11,6 +11,8 @@ export const RESET_DONATION_TOTAL = 'RESET_DONATION_TOTAL'
 export const SHOW_DONATION = 'SHOW_DONATION'
 export const DISPLAY_MODE = 'DISPLAY_MODE'
 export const RESET_DISPLAY_MODE = 'RESET_DISPLAY_MODE'
+export const NEXT_DISPLAY_MODE = 'NEXT_DISPLAY_MODE'
+export const RESET_NEXT_DISPLAY_MODE = 'RESET_NEXT_DISPLAY_MODE'
 
 export const resetDonationTotal = () => {
     return {type: RESET_DONATION_TOTAL}
@@ -49,4 +51,10 @@ export const resetDisplayMode = () => {
 }
 export const displayMode = (displayMode) => {
     return {type: DISPLAY_MODE, displayMode: displayMode}
+}
+export const resetNextDisplayMode = () => {
+    return {type: RESET_NEXT_DISPLAY_MODE}
+}
+export const nextDisplayMode = (displayMode) => {
+    return {type: NEXT_DISPLAY_MODE, displayMode: displayMode}
 }

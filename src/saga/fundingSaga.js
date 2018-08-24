@@ -1,7 +1,7 @@
 import {call, put, select, takeLatest} from 'redux-saga/effects'
 import {delay} from 'redux-saga'
 import {donationCurrentTotal, resetDisplayMode, lastDonations, showDonation} from '../action'
-import {fundraiserTarget, fundraiserTotal} from "../action/index";
+import {displayMode, fundraiserTarget, fundraiserTotal, nextDisplayMode, resetNextDisplayMode} from "../action/index";
 // import {getLastEvent, getLastTimestamp, getTickData} from "../redux/funding";
 const axios = require('axios')
 
@@ -13,6 +13,7 @@ function* pollFundingPage() {
         response = yield call(
             axios.get,
             'http://localhost:8080/api/state'
+            // 'https://4ava.azurewebsites.net/api/state'
         )
         // console.log(response)
         const responseData = response.data
@@ -42,7 +43,17 @@ function* pollFundingInit() {
     //begin polling
     while (true) {
         yield call(pollFundingPage)
-        yield call(delay, 2000)
+        yield call(delay, 4000)
+    }
+}
+
+function* screensaverInit() {
+    //begin polling
+    while (true) {
+        yield call(waitForNextScreenSaver)
+        yield put(nextDisplayMode('takings'))
+        yield call(waitForNextScreenSaver)
+        yield put(nextDisplayMode('lastDonation'))
     }
 }
 
@@ -53,13 +64,42 @@ function* eventTimerInit() {
     while (true) {
         try {
             yield call(processEvents)
+
+            yield put(resetDisplayMode())
+
+            yield call(delay, 3000)
+            var nextDisplayMode = yield select((store) => store.funding.nextDisplayMode)
+            if (nextDisplayMode) {
+                if (nextDisplayMode === 'lastDonation'){
+                    var donations = yield select((store) => store.funding.lastDonations)
+                    if (donations && donations.length > 0){
+                        var randIndex = Math.floor(Math.random() * donations.length)
+                        yield put(showDonation(donations[randIndex], false))
+                    }
+                }
+                else {
+                    yield put(displayMode(nextDisplayMode))
+                }
+                yield call(waitOnPage)
+                yield put(resetNextDisplayMode())
+            }
+
             yield put(resetDisplayMode())
         }
         catch (error) {
             console.log(error)
         }
-        yield call(delay, 3000)
     }
+}
+
+function* waitForNextScreenSaver() {
+    yield call(delay, 30000)
+}
+
+function* waitOnPage() {
+    yield call(delay, 10000)
+    yield put(displayMode('thanks'))
+    yield call(delay, 5000)
 }
 
 function* processEvents() {
@@ -70,10 +110,12 @@ function* processEvents() {
     // loop over last donations - starting at the end
     for (var i = state.lastDonations.length - 1; i > -1; i--) {
         var lastD = state.lastDonations[i]
-        console.log(lastD)
+        // console.log(lastD)
         if (!state.processedDonations[lastD.donationId]) {
             yield put(showDonation(lastD, true))
-            yield call(delay, 4000)
+            // yield call(delay, 4000)
+            yield call(waitOnPage)
+
             // yield put(lastDonationProcessedId(lastD.donationId))
             return;
         }
@@ -84,8 +126,7 @@ function* processEvents() {
 function* fundingSagaRoot() {
     yield takeLatest('persist/REHYDRATE', pollFundingInit)
     yield takeLatest('persist/REHYDRATE', eventTimerInit)
-    // yield takeEvery(PUSH_CHANNEL_EVENT, pushChannelEvent)
-    // yield takeLatest(ENABLE_PRICE_TICK, enablePriceTick)
+    yield takeLatest('persist/REHYDRATE', screensaverInit)
 }
 
 export default fundingSagaRoot

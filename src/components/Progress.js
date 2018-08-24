@@ -35,7 +35,7 @@ export default class Progress extends Component {
                 }}>
                     <div style={{
                         marginTop:10
-                    }} className="softFontBluex">Target:</div>
+                    }} className="softFontBluex">Target</div>
                     <div >
                         <span className="dollar">$</span>
                         <b style={{
