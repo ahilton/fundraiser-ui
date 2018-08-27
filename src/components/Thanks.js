@@ -37,6 +37,7 @@ export default class Thanks extends Component {
                 <div style={{
                     width: 600,
                     flex: '50%',
+                    marginTop:-50
                     // height: '100%',
                 }}>
                     <img src={ava} width={500}/>
@@ -56,11 +57,11 @@ export default class Thanks extends Component {
                     >
                         <div style={{
                             // flex: 1,
-                            fontSize: 40,
-                            width: 270,
+                            fontSize: 60,
+                            width: 370,
                             fontWeight:400
                         }}>
-                            Thanks for your generous support!
+                            <b>Thanks for your generous support!</b>
                             <div style={{
                                 color:'#E99F86',
                                 marginTop:50

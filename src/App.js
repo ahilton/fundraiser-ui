@@ -66,7 +66,7 @@ class App extends Component {
 
                 {!showDonation && !showTakings && !showThanks && !showFireworks && <Balloon style={{
                     position:'absolute',
-                    top:50,
+                    top:250,
                     left:60,
                     opacity: 0.8
                 }}/>}
@@ -78,7 +78,8 @@ class App extends Component {
                     flex: 1,
                     alignItems: 'center', // vertical
                     justifyContent: 'center', //horizontal
-                    flexDirection: 'column'
+                    flexDirection: 'column',
+                    marginTop:200
                 }}>
                     {!showDonation && !showTakings && !showThanks && <Ticker {...{
                         fundraiserTotal:total,

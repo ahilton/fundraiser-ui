@@ -12,8 +12,8 @@ function* pollFundingPage() {
     try {
         response = yield call(
             axios.get,
-            'http://localhost:8080/api/state'
-            // 'https://4ava.azurewebsites.net/api/state'
+            // 'http://localhost:8080/api/state'
+            'https://4ava.azurewebsites.net/api/state'
         )
         // console.log(response)
         const responseData = response.data
@@ -93,11 +93,11 @@ function* eventTimerInit() {
 }
 
 function* waitForNextScreenSaver() {
-    yield call(delay, 30000)
+    yield call(delay, 60000)
 }
 
 function* waitOnPage() {
-    yield call(delay, 10000)
+    yield call(delay, 12000)
     yield put(displayMode('thanks'))
     yield call(delay, 5000)
 }

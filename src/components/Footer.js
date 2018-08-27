@@ -22,7 +22,7 @@ export default class Footer extends Component {
                 {/*FIXED FOOTER*/}
                 <div style={{
                     height:150,
-                    position:'fixed', left:0, bottom:0,
+                    position:'fixed', left:0, top:0,
                     width:'100%',
                     backgroundColor:'#207EA9',
                     display:'flex',

@@ -13,7 +13,7 @@ export default class Takings extends Component {
                 y: 50
             },
             top: {
-                y:-50,
+                y:-10,
                 transition: {
                     // loop:Infinity,
                     duration:25000,
@@ -29,7 +29,7 @@ export default class Takings extends Component {
                 <div className="softFontBlue" style={{
                     fontSize:50,
                     marginBottom:30
-                }}> Community Event Takings
+                }}> <b>Community Event Takings</b>
                 </div>
                 <div style={{
                     color:'#E99F86',

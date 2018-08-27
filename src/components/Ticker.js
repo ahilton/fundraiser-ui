@@ -35,7 +35,7 @@ export default class Ticker extends Component {
                     marginBottom:50
                 }}>
 
-                    Amount Raised <b>Today</b>
+                    <b>Amount Raised Today</b>
                 </div>
                <Animate initialPose={'above'}
                         pose={'normal'}

@@ -14,12 +14,12 @@ import {
 } from '../action'
 
 export const fundingInitialState = {
-    donationStartTotal:57000,
-    donationCurrentTotal:58000,
+    donationStartTotal:58930,
+    donationCurrentTotal:58930,
     lastDonations:[],
     processedDonations:{},
     lastDonationProcessedId:null,
-    fundraiserTotal:0,
+    fundraiserTotal:100,
     fundraiserTarget:10000,
     showDonationData:null,
     displayMode:null,

@@ -18,7 +18,7 @@ export default class Donation extends Component {
                 y: 50
             },
             top: {
-                y:-50,
+                y:-10,
                 transition: {
                     // loop:Infinity,
                     duration:25000,
@@ -38,7 +38,7 @@ export default class Donation extends Component {
                     fontSize:50,
                     marginBottom:30
                 }}>
-                    {title}
+                    <b>{title}</b>
                     <div className="softFontRed">
                         <b style={{
                             fontSize:30
