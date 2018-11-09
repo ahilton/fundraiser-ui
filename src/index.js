@@ -1,7 +1,7 @@
 import React from 'react';
 import {render} from 'react-dom';
 import './index.css';
-import App from './App';
+import AppNew from './AppNew';
 // import registerServiceWorker from './registerServiceWorker';
 
 import allReducers, {initialState} from './redux'
@@ -40,7 +40,7 @@ persistStore(store, {
 
 render(
     <Provider store={store}>
-        <App />
+        <AppNew />
     </Provider>,
     document.getElementById('root')
 )

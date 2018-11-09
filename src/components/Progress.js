@@ -1,41 +1,32 @@
-
-
 import React, {Component} from 'react';
-
-// import { Colors, Icon } from "@blueprintjs/core";
-// import {Box, Flex} from "reflexbox";
-// import StockCard from "./StockCard";
 
 export default class Progress extends Component {
 
     render() {
         const {fundraiserTarget, fundraiserPct} = this.props
-        console.log('fundraiserTarget, pct:'+fundraiserPct)
+        console.log('fundraiserTarget, pct:' + fundraiserPct)
         return (
             <div id='progressWidget' style={{
-                width:800
+                width: 800
             }}>
                 <div className="pt-progress-bar pt-no-animation" style={{
-                //width:600,
-                height: 60
-            }}>
+                    height: 60
+                }}>
 
-                <div className="pt-progress-meter" style={{
-                    width:fundraiserPct+'%'}}></div>
+                    <div className="pt-progress-meter" style={{
+                        width: fundraiserPct + '%'
+                    }}></div>
 
                 </div>
                 <div style={{
-                    //position:'relative',
-                    //left:500,
-                    fontSize:40,
-                    // alignContent:'right',
-                    // alignItems:'right',
-                    textAlign:'right'
+                    fontSize: 40,
+                    textAlign: 'right'
                 }}>
                     <div style={{
-                        marginTop:10
-                    }} className="softFontBlue">Target</div>
-                    <div >
+                        marginTop: 10
+                    }} className="softFontBlue">Target
+                    </div>
+                    <div>
                         <span className="dollar">$</span>
                         <b style={{
                             fontSize: 50

@@ -89,7 +89,7 @@ function* eventTimerInit() {
 }
 
 function* waitForNextScreenSaver() {
-    yield call(delay, 60000)
+    yield call(delay, 6000)
 }
 
 function* waitOnPage() {

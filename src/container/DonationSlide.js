@@ -1,15 +1,9 @@
-
 import React, {Component} from 'react';
 
 import posed from "react-pose";
-import Progress from "./Progress";
+import Slide from "./Slide";
 
-// import { Colors, Icon } from "@blueprintjs/core";
-// import {Box, Flex} from "reflexbox";
-// import StockCard from "./StockCard";
-
-
-export default class Donation extends Component {
+export default class DonationSlide extends Component {
 
     render() {
 
@@ -18,11 +12,11 @@ export default class Donation extends Component {
                 y: 50
             },
             top: {
-                y:-10,
+                y: -10,
                 transition: {
                     // loop:Infinity,
-                    duration:25000,
-                    yoyo:Infinity
+                    duration: 25000,
+                    yoyo: Infinity
                 }
             }
         })
@@ -30,18 +24,18 @@ export default class Donation extends Component {
         var {showDonationData} = this.props
         var {name, amount, message, time} = showDonationData.donation
         amount = amount.replace("$", "")
-        var title = showDonationData.isNew?"New Online Donation!":"Recent Online Donation"
-        var timeAgo =showDonationData.isNew?"":time
+        var title = showDonationData.isNew ? "New Online DonationSlide!" : "Recent Online DonationSlide"
+        var timeAgo = showDonationData.isNew ? "" : time
         return (
-            <div style={{textAlign: 'center'}}>
+            <Slide>
                 <div className="softFontBlue" style={{
-                    fontSize:50,
-                    marginBottom:30
+                    fontSize: 50,
+                    marginBottom: 30
                 }}>
                     <b>{title}</b>
                     <div className="softFontRed">
                         <b style={{
-                            fontSize:30
+                            fontSize: 30
                         }}>{timeAgo}</b>
                     </div>
                 </div>
@@ -53,7 +47,7 @@ export default class Donation extends Component {
 
                     <div style={{
                         fontSize: 90,
-                        marginLeft:-70
+                        marginLeft: -70
                     }}>
                         <span className="dollar">$&nbsp;
                         </span>
@@ -64,21 +58,21 @@ export default class Donation extends Component {
                     </div>
 
                     <div style={{
-                        fontSize:50,
-                        marginBottom:20
+                        fontSize: 50,
+                        marginBottom: 20
                     }}>
                         {name}
                     </div>
                     {message && <div className='softFontBlue example-twitter' style={{
-                        fontFamily:'journal',
-                        fontSize:35,
+                        fontFamily: 'journal',
+                        fontSize: 35,
                         fontStyle: 'italic',
-                        width:600
+                        width: 600
                     }}>
                         {message}
                     </div>}
                 </Notify>
-            </div>
+            </Slide>
         )
     }
 }

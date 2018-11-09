@@ -15,10 +15,10 @@ import Footer from "./components/Footer";
 
 import Balloon from "./components/Balloon";
 import Ticker from "./components/Ticker";
-import Donation from "./components/Donation";
-import Takings from "./components/Takings";
-import Thanks from "./components/Thanks";
-import FireworksContainer from "./components/FireworksContainer";
+import Donation from "./container/DonationSlide";
+import Takings from "./container/TakingsSlide";
+import Thanks from "./container/ThanksSlide";
+import FireworksContainer from "./container/FireworksSlide";
 
 var skyline = require('./img/skyline.png')
 
@@ -33,25 +33,30 @@ class App extends Component {
 
     render() {
         const {
-            donationStartTotal,
-            donationCurrentTotal,
-            showDonationData,
-            fundraiserTarget,
+            // donationStartTotal,
+            // donationCurrentTotal,
+            // showDonationData,
+            // fundraiserTarget,
             displayMode,
-            fundraiserTotal
+            // fundraiserTotal
         } = this.props
 
-        var donationTotal = donationCurrentTotal - donationStartTotal
-        var total = donationTotal + fundraiserTotal
+        // var donationTotal = donationCurrentTotal - donationStartTotal
+        // var total = donationTotal + fundraiserTotal
+        //
+        // var safeFundraiserTarget = (fundraiserTarget && fundraiserTarget>1)?fundraiserTarget:10000
+        //
+        // var fundraiserPct = (total >= fundraiserTarget) ? 100 : Math.round((total / safeFundraiserTarget)* 100)
 
-        var safeFundraiserTarget = (fundraiserTarget && fundraiserTarget>1)?fundraiserTarget:10000
-
-        var fundraiserPct = (total >= fundraiserTarget) ? 100 : Math.round((total / safeFundraiserTarget)* 100)
         var showDonation = (showDonationData && displayMode && displayMode === 'donation')
         var showTakings = (displayMode && displayMode === 'takings')
         var showThanks = (displayMode && displayMode === 'thanks')
         var showFireworks = (displayMode && displayMode === 'fireworks')
         // console.log(showDonationData)
+
+
+
+
 
         return (
 
@@ -103,7 +108,8 @@ class App extends Component {
                         alignItems:'center', // vertical
                         justifyContent: 'center', //horizontal
                         textAlign:'center',
-                        paddingBottom: 10
+                        paddingBottom: 10,
+                        zIndex: -10
                     }}>
                         <div style={{
                             maxWidth:1000
@@ -121,11 +127,11 @@ class App extends Component {
 
 function mapStateToProps(state) {
     return {
-        donationStartTotal: getDonationStartTotal(state),
-        donationCurrentTotal: getDonationCurrentTotal(state),
+        // donationStartTotal: getDonationStartTotal(state),
+        // donationCurrentTotal: getDonationCurrentTotal(state),
         showDonationData: getShowDonationData(state),
-        fundraiserTarget:getFundraiserTarget(state),
-        fundraiserTotal:getFundraiserTotal(state),
+        // fundraiserTarget:getFundraiserTarget(state),
+        // fundraiserTotal:getFundraiserTotal(state),
         displayMode:getDisplayMode(state)
     }
 }
