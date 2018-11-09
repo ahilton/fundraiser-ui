@@ -8,18 +8,15 @@
 
 .dollar {
     /*color: #E99F86*/
-    color:#DE5021;
-    opacity:0.7;
+    color: #aaaaaa;
+    opacity:0.9;
 }
 
 .softFontRed {
     color:#DE5021;
-    opacity:0.7;
-}
-.softFontBlue {
-    color:#207EA9;
     opacity:1;
 }
+
 
 .example-twitter {
     display: block;

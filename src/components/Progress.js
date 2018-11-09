@@ -12,16 +12,15 @@ export default class Progress extends Component {
         const {fundraiserTarget, fundraiserPct} = this.props
         console.log('fundraiserTarget, pct:'+fundraiserPct)
         return (
-            <div style={{
-                width:600
+            <div id='progressWidget' style={{
+                width:800
             }}>
                 <div className="pt-progress-bar pt-no-animation" style={{
                 //width:600,
-                height: 30
+                height: 60
             }}>
 
                 <div className="pt-progress-meter" style={{
-                    backgroundColor:'#207EA9',
                     width:fundraiserPct+'%'}}></div>
 
                 </div>
@@ -35,7 +34,7 @@ export default class Progress extends Component {
                 }}>
                     <div style={{
                         marginTop:10
-                    }} className="softFontBluex"><b>Target</b></div>
+                    }} className="softFontBlue">Target</div>
                     <div >
                         <span className="dollar">$</span>
                         <b style={{

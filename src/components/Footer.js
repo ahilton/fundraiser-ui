@@ -20,27 +20,20 @@ export default class Footer extends Component {
                     width:'100%'
                 }}/>
                 {/*FIXED FOOTER*/}
-                <div style={{
+                <div id='avasJourneyBanner' style={{
                     height:150,
                     position:'fixed', left:0, top:0,
                     width:'100%',
-                    backgroundColor:'#207EA9',
                     display:'flex',
                     alignItems:'center', // vertical
                     justifyContent: 'center', //horizontal
+                    textAlign:'center',
+                    paddingLeft: 50,
+                    paddingRight: 50,
                 }}>
 
-                    <div style={{
-                        color:Colors.LIGHT_GRAY4,
-                        fontSize: 30,
-                        textAlign:'center',
-                        paddingLeft: 50,
-                        paddingRight: 50,
-                    }}
-                    >
                         {this.props.children}
                         {lastSystemMessage}
-                    </div>
                 </div>
             </div>
         )

@@ -14,6 +14,9 @@ export const RESET_DISPLAY_MODE = 'RESET_DISPLAY_MODE'
 export const NEXT_DISPLAY_MODE = 'NEXT_DISPLAY_MODE'
 export const RESET_NEXT_DISPLAY_MODE = 'RESET_NEXT_DISPLAY_MODE'
 
+export const CONFIG_UPDATE = 'CONFIG_UPDATE'
+export const MODE_UPDATE = 'MODE_UPDATE'
+
 export const resetDonationTotal = () => {
     return {type: RESET_DONATION_TOTAL}
 }
@@ -57,4 +60,12 @@ export const resetNextDisplayMode = () => {
 }
 export const nextDisplayMode = (displayMode) => {
     return {type: NEXT_DISPLAY_MODE, displayMode: displayMode}
+}
+
+
+export const configUpdate = (data) => {
+    return {type: CONFIG_UPDATE, data: data}
+}
+export const modeUpdate = (data) => {
+    return {type: MODE_UPDATE, data: data}
 }

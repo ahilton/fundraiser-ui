@@ -20,6 +20,8 @@ import Takings from "./components/Takings";
 import Thanks from "./components/Thanks";
 import FireworksContainer from "./components/FireworksContainer";
 
+var skyline = require('./img/skyline.png')
+
 class App extends Component {
 
     pageGrowStyle = {
@@ -53,23 +55,18 @@ class App extends Component {
 
         return (
 
-            <div style={{
+            <div id='mainContent' style={{
                 display: 'flex',
-                fontFamily: 'Helvetica-light, Helvetica',
                 flexDirection: 'row',
                 height: '100%',
-                backgroundColor: '#F4C0AF', //lr F4C0AF //lg B6E8E3 //lb BAE9FF //ly F9F0BB
-                //b 97DEFF //g 8DD1CA //r E99F86 //y F3E598
-                //db 30BDFF //dg 41BAAE //dr DE5021 //dy EDD23B
-                //vb 207EA9 //vg 2B7C74 //vr 943616 //vy 9E8C28
             }}>
 
-                {!showDonation && !showTakings && !showThanks && !showFireworks && <Balloon style={{
-                    position:'absolute',
-                    top:250,
-                    left:60,
-                    opacity: 0.8
-                }}/>}
+                {/*{!showDonation && !showTakings && !showThanks && !showFireworks && <Balloon style={{*/}
+                    {/*position:'absolute',*/}
+                    {/*top:250,*/}
+                    {/*left:60,*/}
+                    {/*// opacity: 0.8*/}
+                {/*}}/>}*/}
 
                 {showFireworks && <FireworksContainer/>}
 
@@ -97,15 +94,23 @@ class App extends Component {
                     <Footer {...{
                         lastSystemMessage:""
                     }}>
-                        <div style={{
-                            color:'white',
-                            //fontFamily:'Verdana',
-                            fontSize:60,
-                            fontVariant:'small-caps',
-                            letterSpacing:'5px',
-                            //fontWeight:'100'
-                        }}><b>avas</b>journey.com.au</div>
+                        <div><b>avas</b>journey.com.au</div>
                     </Footer>
+                    <div style={{
+                        width:'100%',
+                        position:'fixed', left:0, bottom:0,
+                        display:'flex',
+                        alignItems:'center', // vertical
+                        justifyContent: 'center', //horizontal
+                        textAlign:'center',
+                        paddingBottom: 10
+                    }}>
+                        <div style={{
+                            maxWidth:1000
+                        }}>
+                            <img src={skyline} style={{width:'100%'}}/>
+                        </div>
+                    </div>
                 </div>}
 
             </div>

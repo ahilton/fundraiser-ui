@@ -1,29 +1,32 @@
 import {
-    DONATION_START_TOTAL,
+    CONFIG_UPDATE,
+    DISPLAY_MODE,
     DONATION_CURRENT_TOTAL,
-    LAST_DONATIONS,
-    LAST_DONATION_PROCESSED_ID,
+    DONATION_START_TOTAL,
     FUNDRAISER_TARGET,
     FUNDRAISER_TOTAL,
-    RESET_DONATION_TOTAL,
-    SHOW_DONATION,
-    DISPLAY_MODE,
-    RESET_DISPLAY_MODE,
+    LAST_DONATION_PROCESSED_ID,
+    LAST_DONATIONS,
     NEXT_DISPLAY_MODE,
-    RESET_NEXT_DISPLAY_MODE
+    RESET_DISPLAY_MODE,
+    RESET_NEXT_DISPLAY_MODE,
+    SHOW_DONATION
 } from '../action'
+import {MODE_UPDATE} from "../action/index";
 
 export const fundingInitialState = {
-    donationStartTotal:58930,
-    donationCurrentTotal:58930,
-    lastDonations:[],
-    processedDonations:{},
-    lastDonationProcessedId:null,
-    fundraiserTotal:100,
-    fundraiserTarget:10000,
-    showDonationData:null,
-    displayMode:null,
-    nextDisplayMode:null
+    donationStartTotal: 58930,
+    donationCurrentTotal: 58930,
+    lastDonations: [],
+    processedDonations: {},
+    lastDonationProcessedId: null,
+    fundraiserTotal: 100,
+    fundraiserTarget: 10000,
+    showDonationData: null,
+    displayMode: null,
+    nextDisplayMode: null,
+    config: {},
+    modes: {},
 }
 
 export const getFundingState = state => state.funding
@@ -35,13 +38,65 @@ export const getFundraiserTotal = state => getFundingState(state).fundraiserTota
 export const getDisplayMode = state => getFundingState(state).displayMode
 export const getProcessedDonations = state => getFundingState(state).processedDonations
 
+// 0: {key: "INSTA_TAG", value: "avasjourney"}
+// 1: {key: "MESSAGE", value: "We love you Ava!"}
+// 2: {key: "STARTING_TOTAL", value: "220000"}
+// 3: {key: "STARTING_DONATIONS", value: "200000"}
+// 4: {key: "TOTAL_DONATIONS", value: "230000"}
+// 5: {key: "LOW_TARGET_NAME", value: "Cost of Vaccine"}
+// 6: {key: "LOW_TARGET_AMOUNT", value: "300000"}
+// 7: {key: "HIGH_TARGET_NAME", value: "NYC Relocation"}
+// 8: {key: "HIGH_TARGET_AMOUNT", value: "350000"}
+
+//     [{"key":"AUCTION_MODE","value":"false"},
+//     {"key":"TARGET_TICKER_MODE","value":"true"},
+//     {"key":"TOTAL_ON_NIGHT_MODE","value":"true"},
+//     {"key":"LAST_DONATION_MODE","value":"false"},
+//     {"key":"MESSAGE_MODE","value":"false"},
+//     {"key":"INSTA_MODE","value":"true"},
+//     {"key":"AVA_INFO_MODE","value":"true"}]
+
+
+function extractValueFromRawConfig(data, key, defaultValue) {
+    var element = data.find(x => x.key === key)
+    return element ? element.value : defaultValue
+}
+
 const funding = (state = fundingInitialState, action) => {
-    switch(action.type) {
+    switch (action.type) {
+        case CONFIG_UPDATE:
+            return {
+                ...state,
+                config: {
+                    instaTag: extractValueFromRawConfig(action.data, 'INSTA_TAG', state.config.instaTag),
+                    message: extractValueFromRawConfig(action.data, 'MESSAGE', state.config.message),
+                    startingTotal: extractValueFromRawConfig(action.data, 'STARTING_TOTAL', state.config.startingTotal),
+                    startingDonations: extractValueFromRawConfig(action.data, 'STARTING_DONATIONS', state.config.startingDonations),
+                    lowTargetName: extractValueFromRawConfig(action.data, 'LOW_TARGET_NAME', state.config.lowTargetName),
+                    lowTargetAmount: extractValueFromRawConfig(action.data, 'LOW_TARGET_AMOUNT', state.config.lowTargetAmount),
+                    highTargetName: extractValueFromRawConfig(action.data, 'HIGH_TARGET_NAME', state.config.highTargetName),
+                    highTargetAmount: extractValueFromRawConfig(action.data, 'HIGH_TARGET_AMOUNT', state.config.highTargetAmount)
+                }
+            }
+        case MODE_UPDATE:
+            return {
+                ...state,
+                modes: {
+                    auction: extractValueFromRawConfig(action.data, 'AUCTION_MODE', state.modes.auction),
+                    targetTicker: extractValueFromRawConfig(action.data, 'TARGET_TICKER_MODE', state.modes.targetTicker),
+                    totalOnNight: extractValueFromRawConfig(action.data, 'TOTAL_ON_NIGHT_MODE', state.modes.totalOnNight),
+                    lastDonation: extractValueFromRawConfig(action.data, 'LAST_DONATION_MODE', state.modes.lastDonation),
+                    message: extractValueFromRawConfig(action.data, 'MESSAGE_MODE', state.modes.message),
+                    insta: extractValueFromRawConfig(action.data, 'INSTA_MODE', state.modes.insta),
+                    avaInfo: extractValueFromRawConfig(action.data, 'AVA_INFO_MODE', state.modes.avaInfo)
+                }
+            }
+
         case SHOW_DONATION:
             var x = {
                 ...state.processedDonations
             }
-            x[action.data.donation.donationId]=action.data.donation
+            x[action.data.donation.donationId] = action.data.donation
             return {
                 ...state,
                 processedDonations: {
