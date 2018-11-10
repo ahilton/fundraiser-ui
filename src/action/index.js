@@ -16,6 +16,8 @@ export const RESET_NEXT_DISPLAY_MODE = 'RESET_NEXT_DISPLAY_MODE'
 
 export const CONFIG_UPDATE = 'CONFIG_UPDATE'
 export const MODE_UPDATE = 'MODE_UPDATE'
+export const TICKER_MODE_INDEX = 'TICKER_MODE_INDEX'
+export const INFO_MODE_INDEX = 'INFO_MODE_INDEX'
 
 export const resetDonationTotal = () => {
     return {type: RESET_DONATION_TOTAL}
@@ -68,4 +70,10 @@ export const configUpdate = (data) => {
 }
 export const modeUpdate = (data) => {
     return {type: MODE_UPDATE, data: data}
+}
+export const tickerModeIndex = (index) => {
+    return {type: TICKER_MODE_INDEX, data: index}
+}
+export const infoModeIndex = (index) => {
+    return {type: INFO_MODE_INDEX, data: index}
 }

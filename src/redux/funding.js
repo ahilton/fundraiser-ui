@@ -12,7 +12,7 @@ import {
     RESET_NEXT_DISPLAY_MODE,
     SHOW_DONATION
 } from '../action'
-import {MODE_UPDATE} from "../action/index";
+import {INFO_MODE_INDEX, MODE_UPDATE, TICKER_MODE_INDEX} from "../action/index";
 
 export const fundingInitialState = {
     donationStartTotal: 58930,
@@ -27,6 +27,10 @@ export const fundingInitialState = {
     nextDisplayMode: null,
     config: {},
     modes: {},
+    modeIndex: {
+        ticker: 0,
+        info: 0
+    }
 }
 
 export const getFundingState = state => state.funding
@@ -36,6 +40,8 @@ export const getShowDonationData = state => getFundingState(state).showDonationD
 export const getFundraiserTarget = state => getFundingState(state).fundraiserTarget
 export const getFundraiserTotal = state => getFundingState(state).fundraiserTotal
 export const getDisplayMode = state => getFundingState(state).displayMode
+export const getModes = state => getFundingState(state).modes
+export const getModeIndex = state => getFundingState(state).modeIndex
 export const getProcessedDonations = state => getFundingState(state).processedDonations
 
 // 0: {key: "INSTA_TAG", value: "avasjourney"}
@@ -91,7 +97,22 @@ const funding = (state = fundingInitialState, action) => {
                     avaInfo: extractValueFromRawConfig(action.data, 'AVA_INFO_MODE', state.modes.avaInfo)
                 }
             }
-
+        case TICKER_MODE_INDEX:
+            return {
+                ...state,
+                modeIndex: {
+                    ...state.modeIndex,
+                    ticker: action.data
+                }
+            }
+        case INFO_MODE_INDEX:
+            return {
+                ...state,
+                modeIndex: {
+                    ...state.modeIndex,
+                    info: action.data
+                }
+            }
         case SHOW_DONATION:
             var x = {
                 ...state.processedDonations
