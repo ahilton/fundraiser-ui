@@ -32,6 +32,11 @@ html {
   background-color:#e2c75a;
 }
 
+#avasJourneyBanner.insta{
+  background-color: #ff266a;
+  color:white
+}
+
 .dollar-sign{
   padding-right: 4px;
 }

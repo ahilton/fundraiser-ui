@@ -6,7 +6,7 @@ import {Box, Flex} from "reflexbox";
 export default class Footer extends Component {
 
     render() {
-        const {lastSystemMessage} = this.props
+        const {lastSystemMessage, className='defaultFooter'} = this.props
 
         //<img src={channelIcon} width={70} height={70} alt={lastEvent.lastUserMessage}/>
 
@@ -20,7 +20,7 @@ export default class Footer extends Component {
                     width:'100%'
                 }}/>
                 {/*FIXED FOOTER*/}
-                <div id='avasJourneyBanner' style={{
+                <div className={className} id='avasJourneyBanner' style={{
                     height:150,
                     position:'fixed', left:0, top:0,
                     width:'100%',
@@ -29,7 +29,7 @@ export default class Footer extends Component {
                     justifyContent: 'center', //horizontal
                     textAlign:'center',
                     paddingLeft: 50,
-                    paddingRight: 50,
+                    paddingRight: 50
                 }}>
 
                         {this.props.children}

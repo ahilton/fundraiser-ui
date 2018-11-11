@@ -12,7 +12,10 @@ import {
     RESET_NEXT_DISPLAY_MODE,
     SHOW_DONATION
 } from '../action'
-import {INFO_MODE_INDEX, MODE_UPDATE, TICKER_MODE_INDEX} from "../action/index";
+import {
+    INFO_MODE_INDEX, INSTA_DISPLAY_HASH, INSTA_DISPLAY_INDEX, INSTA_DISPLAY_SRC, INSTA_UPDATE, MODE_UPDATE,
+    TICKER_MODE_INDEX
+} from "../action/index";
 
 export const fundingInitialState = {
     donationStartTotal: 58930,
@@ -30,11 +33,20 @@ export const fundingInitialState = {
     modeIndex: {
         ticker: 0,
         info: 0
+    },
+    insta: [],
+    displayData: {
+        insta: {
+            displayIndex: 0,
+            displaySrc: undefined,
+            hash: ''
+        }
     }
 }
 
 export const getFundingState = state => state.funding
 export const getDonationStartTotal = state => getFundingState(state).donationStartTotal
+export const getConfig = state => getFundingState(state).config
 export const getDonationCurrentTotal = state => getFundingState(state).donationCurrentTotal
 export const getShowDonationData = state => getFundingState(state).showDonationData
 export const getFundraiserTarget = state => getFundingState(state).fundraiserTarget
@@ -42,6 +54,8 @@ export const getFundraiserTotal = state => getFundingState(state).fundraiserTota
 export const getDisplayMode = state => getFundingState(state).displayMode
 export const getModes = state => getFundingState(state).modes
 export const getModeIndex = state => getFundingState(state).modeIndex
+export const getInstaData = state => getFundingState(state).insta
+export const getInstaDisplayData = state => getFundingState(state).displayData.insta
 export const getProcessedDonations = state => getFundingState(state).processedDonations
 
 // 0: {key: "INSTA_TAG", value: "avasjourney"}
@@ -111,6 +125,52 @@ const funding = (state = fundingInitialState, action) => {
                 modeIndex: {
                     ...state.modeIndex,
                     info: action.data
+                }
+            }
+        case INSTA_UPDATE:
+            return {
+                ...state,
+                insta: action.data
+            }
+            /*
+    displayData: {
+        insta: {
+            displayIndex: 0,
+            displaySrc: undefined
+        }
+    }
+             */
+        case INSTA_DISPLAY_INDEX:
+            return {
+                ...state,
+                displayData: {
+                    ...state.displayData,
+                    insta: {
+                        ...state.displayData.insta,
+                        displayIndex: action.data
+                    }
+                }
+            }
+        case INSTA_DISPLAY_SRC:
+            return {
+                ...state,
+                displayData: {
+                    ...state.displayData,
+                    insta: {
+                        ...state.displayData.insta,
+                        displaySrc: action.data
+                    }
+                }
+            }
+        case INSTA_DISPLAY_HASH:
+            return {
+                ...state,
+                displayData: {
+                    ...state.displayData,
+                    insta: {
+                        ...state.displayData.insta,
+                        hash: action.data
+                    }
                 }
             }
         case SHOW_DONATION:

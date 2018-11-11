@@ -16,8 +16,12 @@ export const RESET_NEXT_DISPLAY_MODE = 'RESET_NEXT_DISPLAY_MODE'
 
 export const CONFIG_UPDATE = 'CONFIG_UPDATE'
 export const MODE_UPDATE = 'MODE_UPDATE'
+export const INSTA_UPDATE = 'INSTA_UPDATE'
 export const TICKER_MODE_INDEX = 'TICKER_MODE_INDEX'
 export const INFO_MODE_INDEX = 'INFO_MODE_INDEX'
+export const INSTA_DISPLAY_INDEX = 'INSTA_DISPLAY_INDEX'
+export const INSTA_DISPLAY_SRC = 'INSTA_DISPLAY_SRC'
+export const INSTA_DISPLAY_HASH = 'INSTA_DISPLAY_HASH'
 
 export const resetDonationTotal = () => {
     return {type: RESET_DONATION_TOTAL}
@@ -71,9 +75,21 @@ export const configUpdate = (data) => {
 export const modeUpdate = (data) => {
     return {type: MODE_UPDATE, data: data}
 }
+export const instaUpdate = (data) => {
+    return {type: INSTA_UPDATE, data: data}
+}
 export const tickerModeIndex = (index) => {
     return {type: TICKER_MODE_INDEX, data: index}
 }
 export const infoModeIndex = (index) => {
     return {type: INFO_MODE_INDEX, data: index}
+}
+export const instaDisplayIndex = (index) => {
+    return {type: INSTA_DISPLAY_INDEX, data: index}
+}
+export const instaDisplaySrc = (src) => {
+    return {type: INSTA_DISPLAY_SRC, data: src}
+}
+export const instaDisplayHash = (hash) => {
+    return {type: INSTA_DISPLAY_HASH, data: hash}
 }

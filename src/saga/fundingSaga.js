@@ -4,21 +4,24 @@ import {resetDisplayMode} from '../action'
 import {
     configUpdate,
     displayMode,
-    infoModeIndex,
+    infoModeIndex, instaUpdate,
     modeUpdate,
     nextDisplayMode,
     resetNextDisplayMode,
     tickerModeIndex
 } from "../action/index";
 import {getDisplayMode, getModeIndex, getModes} from "../redux/funding";
+import {loadInstaDisplayData, noop} from "./displaySaga";
 // import {getLastEvent, getLastTimestamp, getTickData} from "../redux/funding";
 const axios = require('axios')
+
+const hostname = 'localhost'
 
 function* pollConfig() {
     try {
         var response = yield call(
             axios.get,
-            'http://localhost:8080/api/config/'
+            'http://'+hostname+':8080/api/config/'
         )
         yield put(configUpdate(response.data))
     }
@@ -31,9 +34,22 @@ function* pollModes() {
     try {
         var response = yield call(
             axios.get,
-            'http://localhost:8080/api/config/mode'
+            'http://'+hostname+':8080/api/config/mode'
         )
         yield put(modeUpdate(response.data))
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
+
+function* pollInsta() {
+    try {
+        var response = yield call(
+            axios.get,
+            'http://'+hostname+':8080/api/insta/approved'
+        )
+        yield put(instaUpdate(response.data))
     }
     catch (error) {
         console.log(error)
@@ -45,6 +61,7 @@ function* pollDataInit() {
     while (true) {
         yield call(pollConfig)
         yield call(pollModes)
+        yield call(pollInsta)
         yield call(delay, 4000)
     }
 }
@@ -59,7 +76,7 @@ function* displayController() {
         try {
             // pick slide
             var nextSlideMode = yield call(selectNextSlide)
-            console.log("nextSlideMode = " + nextSlideMode)
+            //console.log("nextSlideMode = " + nextSlideMode)
 
             // race handle & watch for mode change
             yield race({
@@ -76,11 +93,12 @@ function* displayController() {
     }
 }
 
-function* handleMode(modeName) {
+function* handleMode(mode) {
     // process data for next slide
+    yield call(mode.loadDisplay)
 
-    console.log("showing next slide:"+modeName)
-    yield put(displayMode(modeName))
+    //console.log("showing next slide:"+modeName)
+    yield put(displayMode(mode.name))
     yield call(delay, 3000)
 }
 
@@ -117,31 +135,37 @@ __proto__: Object
 const tickerModes = [
     {
         name: "TICKER_1",
-        mode: "totalOnNight"
+        mode: "totalOnNight",
+        loadDisplay: () => noop()
     },
     {
         name: "TICKER_2",
-        mode: "targetTicker"
+        mode: "targetTicker",
+        loadDisplay: () => noop()
     }
 ]
 const infoModes = [
     {
         name: "MESSAGE",
-        mode: "message"
+        mode: "message",
+        loadDisplay: () => noop()
     },
     {
         name: "INSTA",
-        mode: "insta"
+        mode: "insta",
+        loadDisplay: () => loadInstaDisplayData()
     },
     {
         name: "AVA",
-        mode: "avaInfo"
+        mode: "avaInfo",
+        loadDisplay: () => noop()
     }
 ]
 
+
 function* selectNextSlide() {
     var modes = yield select(getModes)
-    console.log(modes)
+    // console.log(modes)
 
     if (modes.auction) {
         return 'AUCTION_MODE'
@@ -153,13 +177,13 @@ function* selectNextSlide() {
     let activeTickerModes = tickerModes.filter(x => modes[x.mode] === true);
     let activeInfoModes = infoModes.filter(x => modes[x.mode] === true);
 
-    console.log("active ticker modes")
-    console.log(activeTickerModes)
-    console.log("active info modes")
-    console.log(activeInfoModes)
+    // console.log("active ticker modes")
+    // console.log(activeTickerModes)
+    // console.log("active info modes")
+    // console.log(activeInfoModes)
 
     if (activeTickerModes.length === 0 && activeInfoModes.length === 0) {
-        return tickerModes[0].name
+        return tickerModes[0]
     }
     if (activeInfoModes.length > 0 && (displayMode && displayMode.startsWith("TICKER") || activeTickerModes.length  === 0)) {
         var index = modeIndex.info + 1
@@ -167,14 +191,14 @@ function* selectNextSlide() {
             index = 0
         }
         yield put(infoModeIndex(index))
-        return activeInfoModes[index].name
+        return activeInfoModes[index]
     } else {
         var index = modeIndex.ticker + 1
         if (index >= activeTickerModes.length) {
             index = 0
         }
         yield put(tickerModeIndex(index))
-        return activeTickerModes[index].name
+        return activeTickerModes[index]
     }
 
     //if action; auction
@@ -182,89 +206,9 @@ function* selectNextSlide() {
 }
 
 
-// function* screensaverInit() {
-//     //begin polling
-//     while (true) {
-//         yield call(waitForNextScreenSaver)
-//         yield put(nextDisplayMode('takings'))
-//         yield call(waitForNextScreenSaver)
-//         yield put(nextDisplayMode('lastDonation'))
-//     }
-// }
-//
-// function* eventTimerInit() {
-//     //begin polling
-//     // yield call(delay, 3000)
-//
-//     while (true) {
-//         try {
-//             // yield call(processEvents)
-//
-//             yield put(resetDisplayMode())
-//
-//             yield call(delay, 3000)
-//             var nextDisplayMode = yield select((store) => store.funding.nextDisplayMode)
-//             if (nextDisplayMode) {
-//                 // if (nextDisplayMode === 'lastDonation'){
-//                 //     var donations = yield select((store) => store.funding.lastDonations)
-//                 //     if (donations && donations.length > 0){
-//                 //         var randIndex = Math.floor(Math.random() * donations.length)
-//                 //         yield put(showDonation(donations[randIndex], false))
-//                 //     }
-//                 // }
-//                 // else {
-//                 yield put(displayMode(nextDisplayMode))
-//                 // }
-//                 yield call(waitOnPage)
-//                 yield put(resetNextDisplayMode())
-//             }
-//
-//             yield put(resetDisplayMode())
-//         }
-//         catch (error) {
-//             console.log(error)
-//         }
-//     }
-// }
-//
-// function* waitForNextScreenSaver() {
-//     yield call(delay, 6000)
-// }
-//
-// function* waitOnPage() {
-//     yield call(delay, 12000)
-//     yield put(displayMode('thanks'))
-//     yield call(delay, 5000)
-// }
-
-// function* processEvents() {
-//
-//     // check for new donations
-//     var state = yield select((store) => store.funding)
-//     // console.log(state)
-//     // loop over last donations - starting at the end
-//     for (var i = state.lastDonations.length - 1; i > -1; i--) {
-//         var lastD = state.lastDonations[i]
-//         // console.log(lastD)
-//         if (!state.processedDonations[lastD.donationId]) {
-//             yield put(displayMode('fireworks'))
-//             yield call(delay, 8000)
-//             yield put(showDonation(lastD, true))
-//             // yield call(delay, 4000)
-//             yield call(waitOnPage)
-//
-//             // yield put(lastDonationProcessedId(lastD.donationId))
-//             return;
-//         }
-//     }
-//
-// }
-
 function* fundingSagaRoot() {
     yield takeLatest('persist/REHYDRATE', pollDataInit)
-    // yield takeLatest('persist/REHYDRATE', eventTimerInit)
     yield takeLatest('persist/REHYDRATE', displayController)
-    // yield takeLatest('persist/REHYDRATE', screensaverInit)
 }
 
 export default fundingSagaRoot

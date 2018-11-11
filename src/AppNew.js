@@ -7,26 +7,37 @@ import '@blueprintjs/core/dist/blueprint.css'
 import './App.css';
 
 import {getDisplayMode, getShowDonationData} from './redux/funding'
-import DonationSlide from "./container/DonationSlide";
-import TakingsSlide from "./container/TakingsSlide";
 import ThanksSlide from "./container/ThanksSlide";
 import FireworksSlide from "./container/FireworksSlide";
 import TickerSlide from "./container/TickerSlide";
+import InstaSlide from "./container/InstaSlide";
 
 class AppNew extends Component {
 
 
     render() {
-        const {
-            showDonationData,
-            displayMode,
-        } = this.props
+        const {displayMode} = this.props
 
-        var showDonation = (showDonationData && displayMode && displayMode === 'donation')
-        var showTakings = (displayMode && displayMode === 'takings')
-        var showThanks = (displayMode && displayMode === 'thanks')
-        var showFireworks = (displayMode && displayMode === 'fireworks')
-        var showTicker = !showDonation && !showTakings && !showThanks
+        var comp
+        switch (displayMode ? displayMode : '') {
+            case 'TICKER_1':
+            case 'TICKER_2':
+                comp = <TickerSlide/>
+                break;
+            case 'FIREWORKS':
+                comp = <FireworksSlide/>
+                break;
+            case 'INSTA':
+                comp = <InstaSlide/>
+                break;
+            case 'AVA':
+                comp = <ThanksSlide {...{}}/>
+                break;
+            default:
+                comp = <TickerSlide/>
+                break;
+
+        }
 
         return (
 
@@ -35,15 +46,7 @@ class AppNew extends Component {
                 flexDirection: 'row',
                 height: '100%',
             }}>
-                {showTicker && <TickerSlide/>}
-                {showTakings && <TakingsSlide {...{
-                    takings:10000
-                }}/>}
-                {showFireworks && <FireworksSlide/>}
-                {showDonation && <DonationSlide {...{
-                    showDonationData: showDonationData
-                }}/>}
-                {showThanks && <ThanksSlide {...{}}/>}
+                {comp}
             </div>
         );
     }
@@ -52,7 +55,7 @@ class AppNew extends Component {
 
 function mapStateToProps(state) {
     return {
-        showDonationData: getShowDonationData(state),
+        // showDonationData: getShowDonationData(state),
         displayMode: getDisplayMode(state)
     }
 }
