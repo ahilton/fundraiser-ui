@@ -21,6 +21,8 @@ class AppNew extends Component {
         var comp
         switch (displayMode ? displayMode : '') {
             case 'TICKER_1':
+                comp = <TickerSlide showNight={true}/>
+                break;
             case 'TICKER_2':
                 comp = <TickerSlide/>
                 break;

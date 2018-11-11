@@ -13,7 +13,7 @@ export default class Ticker extends Component {
 
     render() {
 
-        var {fundraiserTotal, fundraiserTarget, fundraiserPct} = this.props
+        var {fundraiserTotal, fundraiserTarget, fundraiserPct, message} = this.props
 
         const Animate = posed.div({
 
@@ -35,7 +35,7 @@ export default class Ticker extends Component {
                     marginBottom:50
                 }}>
 
-                    Amount Raised Tonight
+                    {message}
                 </div>
                <Animate initialPose={'above'}
                         pose={'normal'}

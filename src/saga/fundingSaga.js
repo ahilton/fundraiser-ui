@@ -1,17 +1,16 @@
-import {call, race, put, select, takeLatest} from 'redux-saga/effects'
+import {call, put, race, select, takeLatest} from 'redux-saga/effects'
 import {delay} from 'redux-saga'
-import {resetDisplayMode} from '../action'
 import {
     configUpdate,
     displayMode,
-    infoModeIndex, instaUpdate,
+    infoModeIndex,
+    instaUpdate,
     modeUpdate,
-    nextDisplayMode,
-    resetNextDisplayMode,
-    tickerModeIndex
+    tickerModeIndex,
+    tickerUpdate
 } from "../action/index";
 import {getDisplayMode, getModeIndex, getModes} from "../redux/funding";
-import {loadInstaDisplayData, noop} from "./displaySaga";
+import {loadInstaDisplayData, loadTickerData, noop} from "./displaySaga";
 // import {getLastEvent, getLastTimestamp, getTickData} from "../redux/funding";
 const axios = require('axios')
 
@@ -21,7 +20,7 @@ function* pollConfig() {
     try {
         var response = yield call(
             axios.get,
-            'http://'+hostname+':8080/api/config/'
+            'http://' + hostname + ':8080/api/config/'
         )
         yield put(configUpdate(response.data))
     }
@@ -34,7 +33,7 @@ function* pollModes() {
     try {
         var response = yield call(
             axios.get,
-            'http://'+hostname+':8080/api/config/mode'
+            'http://' + hostname + ':8080/api/config/mode'
         )
         yield put(modeUpdate(response.data))
     }
@@ -47,9 +46,22 @@ function* pollInsta() {
     try {
         var response = yield call(
             axios.get,
-            'http://'+hostname+':8080/api/insta/approved'
+            'http://' + hostname + ':8080/api/insta/approved'
         )
         yield put(instaUpdate(response.data))
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
+
+function* pollTicker() {
+    try {
+        var response = yield call(
+            axios.get,
+            'http://' + hostname + ':8080/api/fundraise/ticker'
+        )
+        yield put(tickerUpdate(response.data))
     }
     catch (error) {
         console.log(error)
@@ -62,7 +74,8 @@ function* pollDataInit() {
         yield call(pollConfig)
         yield call(pollModes)
         yield call(pollInsta)
-        yield call(delay, 4000)
+        yield call(pollTicker)
+        yield call(delay, 5000)
     }
 }
 
@@ -99,7 +112,7 @@ function* handleMode(mode) {
 
     //console.log("showing next slide:"+modeName)
     yield put(displayMode(mode.name))
-    yield call(delay, 3000)
+    yield call(delay, 4000)
 }
 
 function* interruptIfModeChanges() {
@@ -136,12 +149,12 @@ const tickerModes = [
     {
         name: "TICKER_1",
         mode: "totalOnNight",
-        loadDisplay: () => noop()
+        loadDisplay: () => loadTickerData()
     },
     {
         name: "TICKER_2",
         mode: "targetTicker",
-        loadDisplay: () => noop()
+        loadDisplay: () => loadTickerData()
     }
 ]
 const infoModes = [
@@ -158,6 +171,11 @@ const infoModes = [
     {
         name: "AVA",
         mode: "avaInfo",
+        loadDisplay: () => noop()
+    },
+    {
+        name: "FIREWORKS",
+        mode: "fireworks",
         loadDisplay: () => noop()
     }
 ]
@@ -185,7 +203,7 @@ function* selectNextSlide() {
     if (activeTickerModes.length === 0 && activeInfoModes.length === 0) {
         return tickerModes[0]
     }
-    if (activeInfoModes.length > 0 && (displayMode && displayMode.startsWith("TICKER") || activeTickerModes.length  === 0)) {
+    if (activeInfoModes.length > 0 && (displayMode && displayMode.startsWith("TICKER") || activeTickerModes.length === 0)) {
         var index = modeIndex.info + 1
         if (index >= activeInfoModes.length) {
             index = 0

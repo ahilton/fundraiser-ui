@@ -4,7 +4,7 @@ export default class Progress extends Component {
 
     render() {
         const {fundraiserTarget, fundraiserPct} = this.props
-        console.log('fundraiserTarget, pct:' + fundraiserPct)
+
         return (
             <div id='progressWidget' style={{
                 width: 800
@@ -15,7 +15,9 @@ export default class Progress extends Component {
 
                     <div className="pt-progress-meter" style={{
                         width: fundraiserPct + '%'
-                    }}></div>
+                    }}>
+
+                    </div>
 
                 </div>
                 <div style={{
@@ -27,7 +29,7 @@ export default class Progress extends Component {
                     }} className="softFontBlue">Target
                     </div>
                     <div>
-                        <span className="dollar">$</span>
+                        <span className="dollar">$</span>&nbsp;
                         <b style={{
                             fontSize: 50
                         }}>{fundraiserTarget.toLocaleString()}</b>

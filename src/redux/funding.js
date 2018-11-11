@@ -1,10 +1,6 @@
 import {
     CONFIG_UPDATE,
     DISPLAY_MODE,
-    DONATION_CURRENT_TOTAL,
-    DONATION_START_TOTAL,
-    FUNDRAISER_TARGET,
-    FUNDRAISER_TOTAL,
     LAST_DONATION_PROCESSED_ID,
     LAST_DONATIONS,
     NEXT_DISPLAY_MODE,
@@ -13,19 +9,26 @@ import {
     SHOW_DONATION
 } from '../action'
 import {
-    INFO_MODE_INDEX, INSTA_DISPLAY_HASH, INSTA_DISPLAY_INDEX, INSTA_DISPLAY_SRC, INSTA_UPDATE, MODE_UPDATE,
-    TICKER_MODE_INDEX
+    INFO_MODE_INDEX,
+    INSTA_DISPLAY_HASH,
+    INSTA_DISPLAY_INDEX,
+    INSTA_DISPLAY_SRC,
+    INSTA_UPDATE,
+    MODE_UPDATE,
+    TICKER_DISPLAY_DATA,
+    TICKER_MODE_INDEX,
+    TICKER_UPDATE
 } from "../action/index";
 
 export const fundingInitialState = {
-    donationStartTotal: 58930,
-    donationCurrentTotal: 58930,
+    // donationStartTotal: 58930,
+    // donationCurrentTotal: 58930,
     lastDonations: [],
     processedDonations: {},
     lastDonationProcessedId: null,
-    fundraiserTotal: 100,
-    fundraiserTarget: 10000,
-    showDonationData: null,
+    // fundraiserTotal: 100,
+    // fundraiserTarget: 10000,
+    // showDonationData: null,
     displayMode: null,
     nextDisplayMode: null,
     config: {},
@@ -35,27 +38,41 @@ export const fundingInitialState = {
         info: 0
     },
     insta: [],
+    ticker: {
+        total: 250000,
+        night: 100
+    },
     displayData: {
         insta: {
             displayIndex: 0,
             displaySrc: undefined,
             hash: ''
+        },
+        ticker: {
+            nightTarget: 100000,
+            nightTargetLow: 80000,
+            nightTotal: 10,
+            target: 350000,
+            targetLow: 300000,
+            total: 250000
         }
     }
 }
 
 export const getFundingState = state => state.funding
-export const getDonationStartTotal = state => getFundingState(state).donationStartTotal
+// export const getDonationStartTotal = state => getFundingState(state).donationStartTotal
 export const getConfig = state => getFundingState(state).config
-export const getDonationCurrentTotal = state => getFundingState(state).donationCurrentTotal
-export const getShowDonationData = state => getFundingState(state).showDonationData
-export const getFundraiserTarget = state => getFundingState(state).fundraiserTarget
-export const getFundraiserTotal = state => getFundingState(state).fundraiserTotal
+// export const getDonationCurrentTotal = state => getFundingState(state).donationCurrentTotal
+// export const getShowDonationData = state => getFundingState(state).showDonationData
+// export const getFundraiserTarget = state => getFundingState(state).fundraiserTarget
+// export const getFundraiserTotal = state => getFundingState(state).fundraiserTotal
 export const getDisplayMode = state => getFundingState(state).displayMode
 export const getModes = state => getFundingState(state).modes
 export const getModeIndex = state => getFundingState(state).modeIndex
+export const getTickerData = state => getFundingState(state).ticker
 export const getInstaData = state => getFundingState(state).insta
 export const getInstaDisplayData = state => getFundingState(state).displayData.insta
+export const getTickerDisplayData = state => getFundingState(state).displayData.ticker
 export const getProcessedDonations = state => getFundingState(state).processedDonations
 
 // 0: {key: "INSTA_TAG", value: "avasjourney"}
@@ -132,14 +149,19 @@ const funding = (state = fundingInitialState, action) => {
                 ...state,
                 insta: action.data
             }
-            /*
-    displayData: {
-        insta: {
-            displayIndex: 0,
-            displaySrc: undefined
-        }
+        case TICKER_UPDATE:
+            return {
+                ...state,
+                ticker: action.data
+            }
+        /*
+displayData: {
+    insta: {
+        displayIndex: 0,
+        displaySrc: undefined
     }
-             */
+}
+         */
         case INSTA_DISPLAY_INDEX:
             return {
                 ...state,
@@ -170,6 +192,16 @@ const funding = (state = fundingInitialState, action) => {
                     insta: {
                         ...state.displayData.insta,
                         hash: action.data
+                    }
+                }
+            }
+        case TICKER_DISPLAY_DATA:
+            return {
+                ...state,
+                displayData: {
+                    ...state.displayData,
+                    ticker: {
+                        ...action.data
                     }
                 }
             }
@@ -205,26 +237,6 @@ const funding = (state = fundingInitialState, action) => {
             return {
                 ...state,
                 nextDisplayMode: action.displayMode
-            }
-        case DONATION_START_TOTAL:
-            return {
-                ...state,
-                donationStartTotal: action.total
-            }
-        case DONATION_CURRENT_TOTAL:
-            return {
-                ...state,
-                donationCurrentTotal: action.total
-            }
-        case FUNDRAISER_TARGET:
-            return {
-                ...state,
-                fundraiserTarget: action.total
-            }
-        case FUNDRAISER_TOTAL:
-            return {
-                ...state,
-                fundraiserTotal: action.total
             }
         case LAST_DONATIONS:
             return {
