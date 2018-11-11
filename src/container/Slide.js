@@ -13,7 +13,8 @@ const Slide = ({children, showBalloon = false, showFooter = true, showHeader = t
         justifyContent: 'center', //horizontal
         flexDirection: 'column',
         textAlign: 'center',
-        marginTop: 200
+        marginTop: 150,
+        // backgroundColor:'grey'
     }}>
         {showBalloon && <Balloon style={{
         position:'absolute',

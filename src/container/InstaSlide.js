@@ -41,10 +41,12 @@ class InstaSlide extends Component {
                     // flex: 1,
                     textAlign: 'center',
                     height: '100%',
-                    width: '100%'
+                    width: '100%',
+                    backgroundColor: '#000'
                 }}>
                     <Footer className='insta' {...{
                         lastSystemMessage: ""
+
                     }}>
 
                         <img src={igram} width='100px'/>
@@ -55,7 +57,8 @@ class InstaSlide extends Component {
                     <div style={{
                         width: 600,
                         flex: '60%',
-                        marginTop: -50
+                        // marginTop:150
+                        // marginTop: -50
                     }}>
                         {displaySrc && <img src={displaySrc} width={700}/>}
                         {!displaySrc && <img src={selfie} width={500}/>}
@@ -85,7 +88,8 @@ class InstaSlide extends Component {
                                 </p>
                                 <p style={{
                                     color:'pink',
-                                    fontVariant: 'small-caps'
+                                    fontVariant: 'small-caps',
+                                    letterSpacing:5
                                 }}>
                                     <b>#{hash}</b>
                                 </p>
@@ -94,7 +98,7 @@ class InstaSlide extends Component {
                                     marginTop: 50
                                 }}>
                                 <span className="pt-icon-standard pt-icon-instagram" style={{
-                                    fontSize: 60
+                                    fontSize: 60,
                                 }}/>
                                 </div>
                             </div>

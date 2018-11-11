@@ -27,7 +27,7 @@ class TickerSlide extends Component {
                     fundraiserTotal: total ? total : 0,
                     fundraiserTarget: target ? target : 350000,
                     fundraiserPct: fundraiserPct ? fundraiserPct : 0,
-                    message: showNight ? 'Amount Raised Tonight' : 'Total Amount Raised'
+                    message: showNight ? <span>Amount Raised <b>Tonight</b></span> : 'Total Amount Raised'
                 }}/>
             </Slide>
         )

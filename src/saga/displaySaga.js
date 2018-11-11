@@ -1,5 +1,10 @@
-import {put, select} from 'redux-saga/effects'
-import {instaDisplayHash, instaDisplayIndex, instaDisplaySrc, tickerDisplayData} from "../action/index";
+import {call, put, select} from 'redux-saga/effects'
+import {delay} from 'redux-saga'
+
+import {
+    displayMode, fireworks, instaDisplayHash, instaDisplayIndex, instaDisplaySrc, lastDonationProcessedId, showDonation,
+    tickerDisplayData
+} from "../action/index";
 import {getConfig, getInstaData, getInstaDisplayData, getTickerData} from "../redux/funding";
 
 
@@ -36,6 +41,37 @@ export function* loadTickerData() {
     }
 
     yield put(tickerDisplayData(data))
+}
+
+export function* loadDonationsData() {
+
+    var state = yield select((store) => store.funding)
+
+    if (!state.lastDonations || state.lastDonations.length === 0){
+        return;
+    }
+    // loop over last donations - starting at the end
+    for (var i = state.lastDonations.length - 1; i > -1; i--) {
+        var lastD = state.lastDonations[i]
+
+        if (!state.processedDonations[lastD.donationId]) {
+            yield put(fireworks('New Online Donation!!'))
+            yield call(delay, 8000)
+
+            yield put(showDonation(lastD, true))
+            // // yield call(delay, 4000)
+            // yield call(waitOnPage)
+
+            yield put(lastDonationProcessedId(lastD.donationId))
+            return;
+        }
+    }
+
+    var donations = yield select((store) => store.funding.lastDonations)
+    if (donations && donations.length > 0){
+        var randIndex = Math.floor(Math.random() * donations.length)
+        yield put(showDonation(donations[randIndex], false))
+    }
 }
 
 export function* noop() {

@@ -2,8 +2,10 @@ import React, {Component} from 'react';
 
 import posed from "react-pose";
 import Slide from "./Slide";
+import {connect} from "react-redux";
+import {getShowDonationData} from "../redux/funding";
 
-export default class DonationSlide extends Component {
+class DonationSlide extends Component {
 
     render() {
 
@@ -22,14 +24,18 @@ export default class DonationSlide extends Component {
         })
 
         var {showDonationData} = this.props
-        var {name, amount, message, time} = showDonationData.donation
+        if (!showDonationData) {
+            return <Slide/>
+        }
+        var {name, amount, message, time} = showDonationData
         amount = amount.replace("$", "")
-        var title = showDonationData.isNew ? "New Online DonationSlide!" : "Recent Online DonationSlide"
+        var title = showDonationData.isNew ? "New Online Donation!" : "Recent Online Donation"
         var timeAgo = showDonationData.isNew ? "" : time
         return (
-            <Slide>
+            <Slide showFooter={false}>
                 <div className="softFontBlue" style={{
                     fontSize: 50,
+                    marginTop: 30,
                     marginBottom: 30
                 }}>
                     <b>{title}</b>
@@ -77,3 +83,10 @@ export default class DonationSlide extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        showDonationData: getShowDonationData(state)
+    }
+}
+
+export default connect(mapStateToProps)(DonationSlide);

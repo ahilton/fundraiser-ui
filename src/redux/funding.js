@@ -9,6 +9,7 @@ import {
     SHOW_DONATION
 } from '../action'
 import {
+    DONATIONS_UPDATE, FIREWORKS,
     INFO_MODE_INDEX,
     INSTA_DISPLAY_HASH,
     INSTA_DISPLAY_INDEX,
@@ -28,7 +29,7 @@ export const fundingInitialState = {
     lastDonationProcessedId: null,
     // fundraiserTotal: 100,
     // fundraiserTarget: 10000,
-    // showDonationData: null,
+    showDonationData: null,
     displayMode: null,
     nextDisplayMode: null,
     config: {},
@@ -56,14 +57,15 @@ export const fundingInitialState = {
             targetLow: 300000,
             total: 250000
         }
-    }
+    },
+    fireworksText: 'xxx'
 }
 
 export const getFundingState = state => state.funding
 // export const getDonationStartTotal = state => getFundingState(state).donationStartTotal
 export const getConfig = state => getFundingState(state).config
 // export const getDonationCurrentTotal = state => getFundingState(state).donationCurrentTotal
-// export const getShowDonationData = state => getFundingState(state).showDonationData
+export const getShowDonationData = state => getFundingState(state).showDonationData
 // export const getFundraiserTarget = state => getFundingState(state).fundraiserTarget
 // export const getFundraiserTotal = state => getFundingState(state).fundraiserTotal
 export const getDisplayMode = state => getFundingState(state).displayMode
@@ -74,6 +76,7 @@ export const getInstaData = state => getFundingState(state).insta
 export const getInstaDisplayData = state => getFundingState(state).displayData.insta
 export const getTickerDisplayData = state => getFundingState(state).displayData.ticker
 export const getProcessedDonations = state => getFundingState(state).processedDonations
+export const getFireworksText = state => getFundingState(state).fireworksText
 
 // 0: {key: "INSTA_TAG", value: "avasjourney"}
 // 1: {key: "MESSAGE", value: "We love you Ava!"}
@@ -154,6 +157,11 @@ const funding = (state = fundingInitialState, action) => {
                 ...state,
                 ticker: action.data
             }
+        case DONATIONS_UPDATE:
+            return {
+                ...state,
+                lastDonations: action.data
+            }
         /*
 displayData: {
     insta: {
@@ -209,14 +217,14 @@ displayData: {
             var x = {
                 ...state.processedDonations
             }
-            x[action.data.donation.donationId] = action.data.donation
+            x[action.data.donationId] = action.data
             return {
                 ...state,
                 processedDonations: {
                     ...x
                 },
-                showDonationData: action.data,
-                displayMode: 'donation'
+                showDonationData: action.data
+                // displayMode: 'donation'
             }
         case RESET_DISPLAY_MODE:
             return {
@@ -248,7 +256,12 @@ displayData: {
                 ...state,
                 lastDonationProcessedId: action.id
             }
-
+        case FIREWORKS:
+            return {
+                ...state,
+                displayMode: 'FIREWORKS',
+                fireworksText: action.data
+            }
         default:
             return state
     }

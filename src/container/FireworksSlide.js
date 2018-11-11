@@ -36,6 +36,8 @@ export default class FireworksContainer extends Component {
             height: '100%'
         };
 
+        const {message} = this.props
+
         return (
             <div style={{
                 display: 'flex',
@@ -53,14 +55,10 @@ export default class FireworksContainer extends Component {
                         initialPose={'bottom'}
                         pose={'top'}
                     >
-                        <div style={{
-                            fontSize: 80,
-                            fontWeight: 400,
-                            color: '#F9F0BB',
-                            textShadow: '-3px 0 black, 0 3px black, 3px 0 black, 0 -3px black'
+                        <div className='fireworksText' style={{
 
                         }}>
-                            <b>New Online Donation!</b>
+                            <b>{message}</b>
                         </div>
                     </Notify>
                 </div>

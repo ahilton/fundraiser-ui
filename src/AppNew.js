@@ -6,17 +6,18 @@ import 'normalize.css/normalize.css'
 import '@blueprintjs/core/dist/blueprint.css'
 import './App.css';
 
-import {getDisplayMode, getShowDonationData} from './redux/funding'
+import {getDisplayMode, getFireworksText, getShowDonationData} from './redux/funding'
 import ThanksSlide from "./container/ThanksSlide";
 import FireworksSlide from "./container/FireworksSlide";
 import TickerSlide from "./container/TickerSlide";
 import InstaSlide from "./container/InstaSlide";
+import DonationSlide from "./container/DonationSlide";
 
 class AppNew extends Component {
 
 
     render() {
-        const {displayMode} = this.props
+        const {displayMode, fireworksText} = this.props
 
         var comp
         switch (displayMode ? displayMode : '') {
@@ -27,10 +28,13 @@ class AppNew extends Component {
                 comp = <TickerSlide/>
                 break;
             case 'FIREWORKS':
-                comp = <FireworksSlide/>
+                comp = <FireworksSlide message={fireworksText}/>
                 break;
             case 'INSTA':
                 comp = <InstaSlide/>
+                break;
+            case 'DONATION':
+                comp = <DonationSlide/>
                 break;
             case 'AVA':
                 comp = <ThanksSlide {...{}}/>
@@ -58,7 +62,8 @@ class AppNew extends Component {
 function mapStateToProps(state) {
     return {
         // showDonationData: getShowDonationData(state),
-        displayMode: getDisplayMode(state)
+        displayMode: getDisplayMode(state),
+        fireworksText: getFireworksText(state)
     }
 }
 

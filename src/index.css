@@ -23,6 +23,15 @@ html {
   opacity:1;
 }
 
+.tickerTitle {
+  color: #e2c75a
+}
+.tickerTitle b{
+  //color: #ed6f2a;
+  color: white;
+  font-weight: normal;
+}
+
 #avasJourneyBanner{
   color:#242424;
   /*//fontFamily:'Verdana',*/
@@ -35,6 +44,13 @@ html {
 #avasJourneyBanner.insta{
   background-color: #ff266a;
   color:white
+}
+
+.fireworksText {
+  font-size: 90px;
+  font-weight: 400;
+  color: #e2c75a;
+  text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
 }
 
 .dollar-sign{

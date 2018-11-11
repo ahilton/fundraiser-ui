@@ -17,6 +17,7 @@ export const RESET_NEXT_DISPLAY_MODE = 'RESET_NEXT_DISPLAY_MODE'
 export const CONFIG_UPDATE = 'CONFIG_UPDATE'
 export const MODE_UPDATE = 'MODE_UPDATE'
 export const INSTA_UPDATE = 'INSTA_UPDATE'
+export const DONATIONS_UPDATE = 'DONATIONS_UPDATE'
 export const TICKER_UPDATE = 'TICKER_UPDATE'
 export const TICKER_MODE_INDEX = 'TICKER_MODE_INDEX'
 export const INFO_MODE_INDEX = 'INFO_MODE_INDEX'
@@ -24,7 +25,17 @@ export const INSTA_DISPLAY_INDEX = 'INSTA_DISPLAY_INDEX'
 export const INSTA_DISPLAY_SRC = 'INSTA_DISPLAY_SRC'
 export const INSTA_DISPLAY_HASH = 'INSTA_DISPLAY_HASH'
 export const TICKER_DISPLAY_DATA = 'TICKER_DISPLAY_DATA'
+export const FIREWORKS = 'FIREWORKS'
 
+export const showDonation = (donation, isNew) => {
+    return {type: SHOW_DONATION, data: {
+        ...donation,
+        isNew: isNew
+    }}
+}
+export const lastDonationProcessedId = (id) => {
+    return {type: LAST_DONATION_PROCESSED_ID, id: id}
+}
 export const fundraiserTotal = (total) => {
     return {type: FUNDRAISER_TOTAL, total: total}
 }
@@ -44,6 +55,9 @@ export const modeUpdate = (data) => {
 }
 export const instaUpdate = (data) => {
     return {type: INSTA_UPDATE, data: data}
+}
+export const donationsUpdate = (data) => {
+    return {type: DONATIONS_UPDATE, data: data}
 }
 export const tickerUpdate = (data) => {
     return {type: TICKER_UPDATE, data: data}
@@ -65,4 +79,7 @@ export const instaDisplayHash = (hash) => {
 }
 export const tickerDisplayData = (data) => {
     return {type: TICKER_DISPLAY_DATA, data: data}
+}
+export const fireworks = (msg) => {
+    return {type: FIREWORKS, data: msg}
 }

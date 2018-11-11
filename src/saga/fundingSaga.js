@@ -2,7 +2,7 @@ import {call, put, race, select, takeLatest} from 'redux-saga/effects'
 import {delay} from 'redux-saga'
 import {
     configUpdate,
-    displayMode,
+    displayMode, donationsUpdate,
     infoModeIndex,
     instaUpdate,
     modeUpdate,
@@ -10,7 +10,7 @@ import {
     tickerUpdate
 } from "../action/index";
 import {getDisplayMode, getModeIndex, getModes} from "../redux/funding";
-import {loadInstaDisplayData, loadTickerData, noop} from "./displaySaga";
+import {loadDonationsData, loadInstaDisplayData, loadTickerData, noop} from "./displaySaga";
 // import {getLastEvent, getLastTimestamp, getTickData} from "../redux/funding";
 const axios = require('axios')
 
@@ -68,6 +68,19 @@ function* pollTicker() {
     }
 }
 
+function* pollDonations() {
+    try {
+        var response = yield call(
+            axios.get,
+            'http://' + hostname + ':8080/api/fundraise/donations'
+        )
+        yield put(donationsUpdate(response.data))
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
+
 function* pollDataInit() {
     //begin polling
     while (true) {
@@ -75,6 +88,7 @@ function* pollDataInit() {
         yield call(pollModes)
         yield call(pollInsta)
         yield call(pollTicker)
+        yield call(pollDonations)
         yield call(delay, 5000)
     }
 }
@@ -169,6 +183,11 @@ const infoModes = [
         loadDisplay: () => loadInstaDisplayData()
     },
     {
+        name: "DONATION",
+        mode: "lastDonation",
+        loadDisplay: () => loadDonationsData()
+    },
+    {
         name: "AVA",
         mode: "avaInfo",
         loadDisplay: () => noop()
@@ -194,11 +213,6 @@ function* selectNextSlide() {
     //filter mode consts
     let activeTickerModes = tickerModes.filter(x => modes[x.mode] === true);
     let activeInfoModes = infoModes.filter(x => modes[x.mode] === true);
-
-    // console.log("active ticker modes")
-    // console.log(activeTickerModes)
-    // console.log("active info modes")
-    // console.log(activeInfoModes)
 
     if (activeTickerModes.length === 0 && activeInfoModes.length === 0) {
         return tickerModes[0]

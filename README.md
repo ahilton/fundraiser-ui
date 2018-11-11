@@ -1,5 +1,13 @@
 # oms-ui: Ambient order entry UI & deal blotter supporting oms bot
 
+# todo
+
+- fireworks on total reached
+- high/low totals
+- auction mode?
+- facts & ava pictures
+
+
 ```
   ____              _       _           _   _
  |  _ \            | |     | |         | | | |
