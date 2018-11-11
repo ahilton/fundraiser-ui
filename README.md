@@ -1,11 +1,14 @@
 # oms-ui: Ambient order entry UI & deal blotter supporting oms bot
 
-# todo
+# done
+- add event clear (event controller - dont want to consume events on restart!)
 
+# todo
 - fireworks on total reached
 - high/low totals
-- auction mode?
+- auction slides & auction mode?
 - facts & ava pictures
+- sponsors rotation
 
 
 ```

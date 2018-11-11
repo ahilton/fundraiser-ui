@@ -2,25 +2,25 @@ import {call, put, race, select, takeLatest} from 'redux-saga/effects'
 import {delay} from 'redux-saga'
 import {
     configUpdate,
-    displayMode, donationsUpdate,
+    displayMode, donationsUpdate, eventsUpdate, fireworks,
     infoModeIndex,
-    instaUpdate,
+    instaUpdate, lastEventProcessed,
     modeUpdate,
     tickerModeIndex,
     tickerUpdate
 } from "../action/index";
-import {getDisplayMode, getModeIndex, getModes} from "../redux/funding";
+import {getDisplayMode, getEvents, getLastEventProcessed, getModeIndex, getModes} from "../redux/funding";
 import {loadDonationsData, loadInstaDisplayData, loadTickerData, noop} from "./displaySaga";
 // import {getLastEvent, getLastTimestamp, getTickData} from "../redux/funding";
 const axios = require('axios')
 
-const hostname = 'localhost'
+const hostname = 'http://localhost:8080'
 
 function* pollConfig() {
     try {
         var response = yield call(
             axios.get,
-            'http://' + hostname + ':8080/api/config/'
+            hostname + '/api/config/'
         )
         yield put(configUpdate(response.data))
     }
@@ -33,7 +33,7 @@ function* pollModes() {
     try {
         var response = yield call(
             axios.get,
-            'http://' + hostname + ':8080/api/config/mode'
+            hostname + '/api/config/mode'
         )
         yield put(modeUpdate(response.data))
     }
@@ -46,7 +46,7 @@ function* pollInsta() {
     try {
         var response = yield call(
             axios.get,
-            'http://' + hostname + ':8080/api/insta/approved'
+            hostname + '/api/insta/approved'
         )
         yield put(instaUpdate(response.data))
     }
@@ -59,7 +59,7 @@ function* pollTicker() {
     try {
         var response = yield call(
             axios.get,
-            'http://' + hostname + ':8080/api/fundraise/ticker'
+            hostname + '/api/fundraise/ticker'
         )
         yield put(tickerUpdate(response.data))
     }
@@ -72,9 +72,32 @@ function* pollDonations() {
     try {
         var response = yield call(
             axios.get,
-            'http://' + hostname + ':8080/api/fundraise/donations'
+            hostname + '/api/fundraise/donations'
         )
         yield put(donationsUpdate(response.data))
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
+function* pollEvents() {
+    try {
+        var response = yield call(
+            axios.get,
+            hostname + '/api/events'
+        )
+        yield put(eventsUpdate(response.data))
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
+function* clearEvents() {
+    try {
+        yield call(
+            axios.get,
+            hostname + '/api/events/clear'
+        )
     }
     catch (error) {
         console.log(error)
@@ -83,16 +106,52 @@ function* pollDonations() {
 
 function* pollDataInit() {
     //begin polling
+    yield call(clearEvents)
     while (true) {
         yield call(pollConfig)
         yield call(pollModes)
         yield call(pollInsta)
         yield call(pollTicker)
         yield call(pollDonations)
-        yield call(delay, 5000)
+        yield call(pollEvents)
+        yield call(delay, 2000)
     }
 }
 
+function* processEvents() {
+    try {
+        console.log('PROCESSING EVENTS')
+        var events = yield select(getEvents)
+        // check for and handle unprocessed events
+        var lastEProcessed = yield select(getLastEventProcessed)
+
+        if (!events) {
+            return
+        }
+
+        const newEvents = events.filter(y => !lastEProcessed || y.id > lastEProcessed)
+        var newLastEventProcessed = lastEProcessed
+        for (var i=0; i<newEvents.length; i++) {
+            const event = newEvents[i]
+            newLastEventProcessed = event.id
+
+            switch(event.event) {
+                case 'FIREWORKS':
+                    yield put(fireworks(''))
+                    yield call(delay, 5000)
+                    break;
+                case 'AUCTION_NEXT':
+                    break;
+                default:
+                    break;
+            }
+        }
+        yield put(lastEventProcessed(newLastEventProcessed))
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
 
 /*
     CYCLE THROUGH SLIDES
@@ -101,6 +160,8 @@ function* pollDataInit() {
 function* displayController() {
     while (true) {
         try {
+            yield call(processEvents)
+
             // pick slide
             var nextSlideMode = yield call(selectNextSlide)
             //console.log("nextSlideMode = " + nextSlideMode)
@@ -126,14 +187,18 @@ function* handleMode(mode) {
 
     //console.log("showing next slide:"+modeName)
     yield put(displayMode(mode.name))
-    yield call(delay, 4000)
+    yield call(delay, 10000)
 }
 
 function* interruptIfModeChanges() {
     var currentModes = yield select(getModes)
+    var currentEvents = yield select(getEvents)
     while (true) {
         yield call(delay, 500)
-        yield select(getModes)
+        var newEvents = yield select(getEvents)
+        if (newEvents.length > currentEvents.length){
+            return
+        }
         var newModes = yield select(getModes)
         // if newModes !== currentModes
         for (var key in currentModes) {

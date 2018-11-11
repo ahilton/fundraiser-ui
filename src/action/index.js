@@ -18,6 +18,8 @@ export const CONFIG_UPDATE = 'CONFIG_UPDATE'
 export const MODE_UPDATE = 'MODE_UPDATE'
 export const INSTA_UPDATE = 'INSTA_UPDATE'
 export const DONATIONS_UPDATE = 'DONATIONS_UPDATE'
+export const EVENTS_UPDATE = 'EVENTS_UPDATE'
+export const LAST_EVENT_PROCESSED = 'LAST_EVENT_PROCESSED'
 export const TICKER_UPDATE = 'TICKER_UPDATE'
 export const TICKER_MODE_INDEX = 'TICKER_MODE_INDEX'
 export const INFO_MODE_INDEX = 'INFO_MODE_INDEX'
@@ -58,6 +60,12 @@ export const instaUpdate = (data) => {
 }
 export const donationsUpdate = (data) => {
     return {type: DONATIONS_UPDATE, data: data}
+}
+export const eventsUpdate = (data) => {
+    return {type: EVENTS_UPDATE, data: data}
+}
+export const lastEventProcessed = (data) => {
+    return {type: LAST_EVENT_PROCESSED, data: data}
 }
 export const tickerUpdate = (data) => {
     return {type: TICKER_UPDATE, data: data}

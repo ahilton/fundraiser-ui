@@ -9,12 +9,12 @@ import {
     SHOW_DONATION
 } from '../action'
 import {
-    DONATIONS_UPDATE, FIREWORKS,
+    DONATIONS_UPDATE, EVENTS_UPDATE, FIREWORKS,
     INFO_MODE_INDEX,
     INSTA_DISPLAY_HASH,
     INSTA_DISPLAY_INDEX,
     INSTA_DISPLAY_SRC,
-    INSTA_UPDATE,
+    INSTA_UPDATE, LAST_EVENT_PROCESSED,
     MODE_UPDATE,
     TICKER_DISPLAY_DATA,
     TICKER_MODE_INDEX,
@@ -38,6 +38,8 @@ export const fundingInitialState = {
         ticker: 0,
         info: 0
     },
+    events: [],
+    lastEventProcessed: null,
     insta: [],
     ticker: {
         total: 250000,
@@ -77,6 +79,8 @@ export const getInstaDisplayData = state => getFundingState(state).displayData.i
 export const getTickerDisplayData = state => getFundingState(state).displayData.ticker
 export const getProcessedDonations = state => getFundingState(state).processedDonations
 export const getFireworksText = state => getFundingState(state).fireworksText
+export const getEvents = state => getFundingState(state).events
+export const getLastEventProcessed = state => getFundingState(state).lastEventProcessed
 
 // 0: {key: "INSTA_TAG", value: "avasjourney"}
 // 1: {key: "MESSAGE", value: "We love you Ava!"}
@@ -162,6 +166,17 @@ const funding = (state = fundingInitialState, action) => {
                 ...state,
                 lastDonations: action.data
             }
+        case EVENTS_UPDATE:
+            return {
+                ...state,
+                events: action.data
+            }
+        case LAST_EVENT_PROCESSED:
+            return {
+                ...state,
+                lastEventProcessed: action.data
+            }
+
         /*
 displayData: {
     insta: {
