@@ -5,12 +5,16 @@ import {
     displayMode, donationsUpdate, eventsUpdate, fireworks,
     infoModeIndex,
     instaUpdate, lastEventProcessed,
-    modeUpdate,
+    modeUpdate, nextAuctionItem,
     tickerModeIndex,
     tickerUpdate
 } from "../action/index";
 import {getDisplayMode, getEvents, getLastEventProcessed, getModeIndex, getModes} from "../redux/funding";
-import {loadDonationsData, loadInstaDisplayData, loadTickerData, noop} from "./displaySaga";
+import {
+    loadDataForAuction, loadDataForAuctionMode, loadDataForLiveAuction, loadDonationsData, loadInstaDisplayData,
+    loadTickerData,
+    noop
+} from "./displaySaga";
 // import {getLastEvent, getLastTimestamp, getTickData} from "../redux/funding";
 const axios = require('axios')
 
@@ -141,6 +145,7 @@ function* processEvents() {
                     yield call(delay, 5000)
                     break;
                 case 'AUCTION_NEXT':
+                    yield put(nextAuctionItem())
                     break;
                 default:
                     break;
@@ -187,7 +192,7 @@ function* handleMode(mode) {
 
     //console.log("showing next slide:"+modeName)
     yield put(displayMode(mode.name))
-    yield call(delay, 10000)
+    yield call(delay, 3000)
 }
 
 function* interruptIfModeChanges() {
@@ -258,11 +263,20 @@ const infoModes = [
         loadDisplay: () => noop()
     },
     {
+        name: "AUCTION",
+        mode: "avaInfo",
+        loadDisplay: () => loadDataForAuction()
+    },
+    {
         name: "FIREWORKS",
         mode: "fireworks",
         loadDisplay: () => noop()
     }
 ]
+const auctionMode = {
+    name: "AUCTION",
+    loadDisplay: () => loadDataForLiveAuction()
+}
 
 
 function* selectNextSlide() {
@@ -270,7 +284,7 @@ function* selectNextSlide() {
     // console.log(modes)
 
     if (modes.auction) {
-        return 'AUCTION_MODE'
+        return auctionMode
     }
     var modeIndex = yield select(getModeIndex)
     var displayMode = yield select(getDisplayMode)

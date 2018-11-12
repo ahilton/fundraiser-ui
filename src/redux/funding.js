@@ -9,13 +9,14 @@ import {
     SHOW_DONATION
 } from '../action'
 import {
+    AUCTION_LIVE_MODE,
     DONATIONS_UPDATE, EVENTS_UPDATE, FIREWORKS,
     INFO_MODE_INDEX,
     INSTA_DISPLAY_HASH,
     INSTA_DISPLAY_INDEX,
     INSTA_DISPLAY_SRC,
     INSTA_UPDATE, LAST_EVENT_PROCESSED,
-    MODE_UPDATE,
+    MODE_UPDATE, NEXT_AUCTION_ITEM,
     TICKER_DISPLAY_DATA,
     TICKER_MODE_INDEX,
     TICKER_UPDATE
@@ -58,6 +59,10 @@ export const fundingInitialState = {
             target: 350000,
             targetLow: 300000,
             total: 250000
+        },
+        auction: {
+            liveMode: false,
+            displayIndex: 0
         }
     },
     fireworksText: 'xxx'
@@ -77,6 +82,7 @@ export const getTickerData = state => getFundingState(state).ticker
 export const getInstaData = state => getFundingState(state).insta
 export const getInstaDisplayData = state => getFundingState(state).displayData.insta
 export const getTickerDisplayData = state => getFundingState(state).displayData.ticker
+export const getAuctionDisplayData = state => getFundingState(state).displayData.auction
 export const getProcessedDonations = state => getFundingState(state).processedDonations
 export const getFireworksText = state => getFundingState(state).fireworksText
 export const getEvents = state => getFundingState(state).events
@@ -193,6 +199,28 @@ displayData: {
                     insta: {
                         ...state.displayData.insta,
                         displayIndex: action.data
+                    }
+                }
+            }
+        case AUCTION_LIVE_MODE:
+            return {
+                ...state,
+                displayData: {
+                    ...state.displayData,
+                    auction: {
+                        liveMode: action.data,
+                        displayIndex: 0
+                    }
+                }
+            }
+        case NEXT_AUCTION_ITEM:
+            return {
+                ...state,
+                displayData: {
+                    ...state.displayData,
+                    auction: {
+                        ...state.displayData.auction,
+                        displayIndex: state.displayData.auction.displayIndex+1
                     }
                 }
             }

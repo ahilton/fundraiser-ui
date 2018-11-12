@@ -28,6 +28,8 @@ export const INSTA_DISPLAY_SRC = 'INSTA_DISPLAY_SRC'
 export const INSTA_DISPLAY_HASH = 'INSTA_DISPLAY_HASH'
 export const TICKER_DISPLAY_DATA = 'TICKER_DISPLAY_DATA'
 export const FIREWORKS = 'FIREWORKS'
+export const AUCTION_LIVE_MODE = 'AUCTION_LIVE_MODE'
+export const NEXT_AUCTION_ITEM = 'NEXT_AUCTION_ITEM'
 
 export const showDonation = (donation, isNew) => {
     return {type: SHOW_DONATION, data: {
@@ -90,4 +92,10 @@ export const tickerDisplayData = (data) => {
 }
 export const fireworks = (msg) => {
     return {type: FIREWORKS, data: msg}
+}
+export const auctionLiveMode = (enabled) => {
+    return {type: AUCTION_LIVE_MODE, data: enabled}
+}
+export const nextAuctionItem = () => {
+    return {type: NEXT_AUCTION_ITEM}
 }

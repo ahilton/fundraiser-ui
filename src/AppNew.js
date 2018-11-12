@@ -12,6 +12,7 @@ import FireworksSlide from "./container/FireworksSlide";
 import TickerSlide from "./container/TickerSlide";
 import InstaSlide from "./container/InstaSlide";
 import DonationSlide from "./container/DonationSlide";
+import AuctionSlide from "./container/AuctionSlide";
 
 class AppNew extends Component {
 
@@ -38,6 +39,9 @@ class AppNew extends Component {
                 break;
             case 'AVA':
                 comp = <ThanksSlide {...{}}/>
+                break;
+            case 'AUCTION':
+                comp = <AuctionSlide/>
                 break;
             default:
                 comp = <TickerSlide/>

@@ -2,10 +2,15 @@ import {call, put, select} from 'redux-saga/effects'
 import {delay} from 'redux-saga'
 
 import {
-    displayMode, fireworks, instaDisplayHash, instaDisplayIndex, instaDisplaySrc, lastDonationProcessedId, showDonation,
+    auctionLiveMode,
+    displayMode, fireworks, instaDisplayHash, instaDisplayIndex, instaDisplaySrc, lastDonationProcessedId,
+    nextAuctionItem, showDonation,
     tickerDisplayData
 } from "../action/index";
-import {getConfig, getInstaData, getInstaDisplayData, getTickerData} from "../redux/funding";
+import {
+    fundingInitialState as auctionDisplayData, getAuctionDisplayData, getConfig, getInstaData, getInstaDisplayData,
+    getTickerData
+} from "../redux/funding";
 
 
 export function* loadInstaDisplayData() {
@@ -71,6 +76,23 @@ export function* loadDonationsData() {
     if (donations && donations.length > 0){
         var randIndex = Math.floor(Math.random() * donations.length)
         yield put(showDonation(donations[randIndex], false))
+    }
+}
+
+export function* loadDataForLiveAuction() {
+    // if live mode = false, reset index & set live mode = true
+    var auctionDisplayData = yield select(getAuctionDisplayData)
+    if (auctionDisplayData.liveMode === false) {
+        yield put(auctionLiveMode(true))
+    }
+}
+export function* loadDataForAuction() {
+    // if live mode = true, set mode = false & reset counter
+    var auctionDisplayData = yield select(getAuctionDisplayData)
+    if (auctionDisplayData.liveMode) {
+        yield put(auctionLiveMode(true))
+    } else {
+        yield put(nextAuctionItem())
     }
 }
 

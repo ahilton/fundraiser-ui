@@ -5,11 +5,13 @@
 
 # todo
 - fireworks on total reached
+  - firework quick links ('sold', 'target achieved', 'last message')
 - high/low totals
 - auction slides & auction mode?
 - facts & ava pictures
 - sponsors rotation
-
+- give preference to NEW insta photos
+- fix video
 
 ```
   ____              _       _           _   _
