@@ -61,6 +61,40 @@ html {
   /*font-family: Georgia;*/
 }
 
+.auctionDetail {
+  text-align: left;
+  font-size: 25px;
+  /*line-height: 50px;*/
+  font-weight: 300;
+  padding: 20px;
+  color: #EFEFEF;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius:20px
+}
+.auctionDetailBottom {
+  margin-top: 300px;
+}
+.auctionDetailTop {
+  margin-bottom: 300px;
+}
+
+.auctionDetail h1{
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 50px;
+  color: #e2c75a;
+}
+.auctionDetail ul{
+
+}
+.auctionDetail ul li{
+  margin-top: 10px;
+}
+
+.auctionDetail ul li b{
+  font-weight: 600;
+}
+
 #progressWidget .pt-progress-meter{
   background-color: #f3d85c;
 }

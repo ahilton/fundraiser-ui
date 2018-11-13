@@ -2,16 +2,25 @@
 
 # done
 - add event clear (event controller - dont want to consume events on restart!)
+- auction slides & auction mode?
 
 # todo
 - fireworks on total reached
   - firework quick links ('sold', 'target achieved', 'last message')
-- high/low totals
-- auction slides & auction mode?
+- high/low totals DISABLE TOTAL TICKER (completely & change default)
+- add auction back & 'sold' buttons
 - facts & ava pictures
 - sponsors rotation
 - give preference to NEW insta photos
 - fix video
+
+# on the night
+- disable screensaver / notifications
+- pack charger, dongle, dvi connector (spare mac + Carole's mac?)
+- disable password
+- add name / number to laptop
+- add static 'Avas Gala' page & share with Michael
+- Saturday from 1pm
 
 ```
   ____              _       _           _   _

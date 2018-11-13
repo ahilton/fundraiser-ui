@@ -220,7 +220,9 @@ displayData: {
                     ...state.displayData,
                     auction: {
                         ...state.displayData.auction,
-                        displayIndex: state.displayData.auction.displayIndex+1
+                        displayIndex: state.displayData.auction.displayIndex == 8?
+                            state.displayData.auction.displayIndex:
+                            state.displayData.auction.displayIndex+1
                     }
                 }
             }
