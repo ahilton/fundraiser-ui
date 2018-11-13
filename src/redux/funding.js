@@ -16,7 +16,7 @@ import {
     INSTA_DISPLAY_INDEX,
     INSTA_DISPLAY_SRC,
     INSTA_UPDATE, LAST_EVENT_PROCESSED,
-    MODE_UPDATE, NEXT_AUCTION_ITEM,
+    MODE_UPDATE, NEXT_AUCTION_ITEM, NEXT_AVA_PICTURE, NEXT_FACT, NEXT_SPONSOR, PREVIOUS_AUCTION_ITEM,
     TICKER_DISPLAY_DATA,
     TICKER_MODE_INDEX,
     TICKER_UPDATE
@@ -63,6 +63,15 @@ export const fundingInitialState = {
         auction: {
             liveMode: false,
             displayIndex: 0
+        },
+        picture: {
+            index: 0
+        },
+        fact: {
+            index: 0
+        },
+        sponsor: {
+            index: 0
         }
     },
     fireworksText: 'xxx'
@@ -87,6 +96,9 @@ export const getProcessedDonations = state => getFundingState(state).processedDo
 export const getFireworksText = state => getFundingState(state).fireworksText
 export const getEvents = state => getFundingState(state).events
 export const getLastEventProcessed = state => getFundingState(state).lastEventProcessed
+export const getAvaPictureIndex = state => getFundingState(state).displayData.picture.index
+export const getFactIndex = state => getFundingState(state).displayData.fact.index
+export const getSponsorIndex = state => getFundingState(state).displayData.sponsor.index
 
 // 0: {key: "INSTA_TAG", value: "avasjourney"}
 // 1: {key: "MESSAGE", value: "We love you Ava!"}
@@ -120,6 +132,7 @@ const funding = (state = fundingInitialState, action) => {
                 config: {
                     instaTag: extractValueFromRawConfig(action.data, 'INSTA_TAG', state.config.instaTag),
                     message: extractValueFromRawConfig(action.data, 'MESSAGE', state.config.message),
+                    delay: extractValueFromRawConfig(action.data, 'DELAY', state.config.delay),
                     startingTotal: extractValueFromRawConfig(action.data, 'STARTING_TOTAL', state.config.startingTotal),
                     startingDonations: extractValueFromRawConfig(action.data, 'STARTING_DONATIONS', state.config.startingDonations),
                     lowTargetName: extractValueFromRawConfig(action.data, 'LOW_TARGET_NAME', state.config.lowTargetName),
@@ -133,12 +146,16 @@ const funding = (state = fundingInitialState, action) => {
                 ...state,
                 modes: {
                     auction: extractValueFromRawConfig(action.data, 'AUCTION_MODE', state.modes.auction),
-                    targetTicker: extractValueFromRawConfig(action.data, 'TARGET_TICKER_MODE', state.modes.targetTicker),
+                    staticMode: extractValueFromRawConfig(action.data, 'STATIC_MODE', state.modes.staticMode),
+                    // targetTicker: extractValueFromRawConfig(action.data, 'TARGET_TICKER_MODE', state.modes.targetTicker),
                     totalOnNight: extractValueFromRawConfig(action.data, 'TOTAL_ON_NIGHT_MODE', state.modes.totalOnNight),
                     lastDonation: extractValueFromRawConfig(action.data, 'LAST_DONATION_MODE', state.modes.lastDonation),
                     message: extractValueFromRawConfig(action.data, 'MESSAGE_MODE', state.modes.message),
                     insta: extractValueFromRawConfig(action.data, 'INSTA_MODE', state.modes.insta),
-                    avaInfo: extractValueFromRawConfig(action.data, 'AVA_INFO_MODE', state.modes.avaInfo)
+                    avaInfo: extractValueFromRawConfig(action.data, 'AVA_INFO_MODE', state.modes.avaInfo),
+                    infoAuction: extractValueFromRawConfig(action.data, 'INFO_AUCTION_MODE', state.modes.infoAuction),
+                    facts: extractValueFromRawConfig(action.data, 'FACTS_MODE', state.modes.facts),
+                    sponsors: extractValueFromRawConfig(action.data, 'SPONSORS_MODE', state.modes.sponsors)
                 }
             }
         case TICKER_MODE_INDEX:
@@ -213,6 +230,18 @@ displayData: {
                     }
                 }
             }
+        case PREVIOUS_AUCTION_ITEM:
+            return {
+                ...state,
+                displayData: {
+                    ...state.displayData,
+                    auction: {
+                        ...state.displayData.auction,
+                        displayIndex: state.displayData.auction.displayIndex < 1?
+                            0: state.displayData.auction.displayIndex-1
+                    }
+                }
+            }
         case NEXT_AUCTION_ITEM:
             return {
                 ...state,
@@ -220,9 +249,38 @@ displayData: {
                     ...state.displayData,
                     auction: {
                         ...state.displayData.auction,
-                        displayIndex: state.displayData.auction.displayIndex == 8?
-                            state.displayData.auction.displayIndex:
-                            state.displayData.auction.displayIndex+1
+                        displayIndex: state.displayData.auction.displayIndex > 7?
+                            0: state.displayData.auction.displayIndex+1
+                    }
+                }
+            }
+        case NEXT_AVA_PICTURE:
+            return {
+                ...state,
+                displayData: {
+                    ...state.displayData,
+                    picture: {
+                        index: state.displayData.picture.index > 7? 0: state.displayData.picture.index+1
+                    }
+                }
+            }
+        case NEXT_SPONSOR:
+            return {
+                ...state,
+                displayData: {
+                    ...state.displayData,
+                    sponsor: {
+                        index: state.displayData.sponsor.index > 7? 0: state.displayData.sponsor.index+1
+                    }
+                }
+            }
+        case NEXT_FACT:
+            return {
+                ...state,
+                displayData: {
+                    ...state.displayData,
+                    fact: {
+                        index: state.displayData.fact.index > 5? 0: state.displayData.fact.index+1
                     }
                 }
             }

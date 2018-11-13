@@ -13,6 +13,10 @@ import TickerSlide from "./container/TickerSlide";
 import InstaSlide from "./container/InstaSlide";
 import DonationSlide from "./container/DonationSlide";
 import AuctionSlide from "./container/AuctionSlide";
+import StaticSlide from "./container/StaticSlide";
+import AvaPictureSlide from "./container/AvaPictureSlide";
+import FactsSlide from "./container/FactsSlide";
+import SponsorsSlide from "./container/SponsorsSlide";
 
 class AppNew extends Component {
 
@@ -23,10 +27,8 @@ class AppNew extends Component {
         var comp
         switch (displayMode ? displayMode : '') {
             case 'TICKER_1':
-                comp = <TickerSlide showNight={true}/>
-                break;
             case 'TICKER_2':
-                comp = <TickerSlide/>
+                comp = <TickerSlide showNight={true}/>
                 break;
             case 'FIREWORKS':
                 comp = <FireworksSlide message={fireworksText}/>
@@ -38,13 +40,22 @@ class AppNew extends Component {
                 comp = <DonationSlide/>
                 break;
             case 'AVA':
-                comp = <ThanksSlide {...{}}/>
+                comp = <AvaPictureSlide/>
                 break;
+            // case 'AVA':
+            //     comp = <ThanksSlide {...{}}/>
+            //     break;
             case 'AUCTION':
                 comp = <AuctionSlide/>
                 break;
+            case 'FACTS':
+                comp = <FactsSlide/>
+                break;
+            case 'SPONSORS':
+                comp = <SponsorsSlide/>
+                break;
             default:
-                comp = <TickerSlide/>
+                comp = <StaticSlide/>
                 break;
 
         }

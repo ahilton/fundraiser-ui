@@ -30,6 +30,7 @@ export const TICKER_DISPLAY_DATA = 'TICKER_DISPLAY_DATA'
 export const FIREWORKS = 'FIREWORKS'
 export const AUCTION_LIVE_MODE = 'AUCTION_LIVE_MODE'
 export const NEXT_AUCTION_ITEM = 'NEXT_AUCTION_ITEM'
+export const PREVIOUS_AUCTION_ITEM = 'PREVIOUS_AUCTION_ITEM'
 
 export const showDonation = (donation, isNew) => {
     return {type: SHOW_DONATION, data: {
@@ -98,4 +99,19 @@ export const auctionLiveMode = (enabled) => {
 }
 export const nextAuctionItem = () => {
     return {type: NEXT_AUCTION_ITEM}
+}
+export const previousAuctionItem = () => {
+    return {type: PREVIOUS_AUCTION_ITEM}
+}
+export const NEXT_AVA_PICTURE = 'NEXT_AVA_PICTURE'
+export const nextAvaPicture = () => {
+    return {type: NEXT_AVA_PICTURE}
+}
+export const NEXT_FACT = 'NEXT_FACT'
+export const nextFact = () => {
+    return {type: NEXT_FACT}
+}
+export const NEXT_SPONSOR = 'NEXT_SPONSOR'
+export const nextSponsor = () => {
+    return {type: NEXT_SPONSOR}
 }

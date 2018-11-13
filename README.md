@@ -4,15 +4,20 @@
 - add event clear (event controller - dont want to consume events on restart!)
 - auction slides & auction mode?
 
-# todo
-- fireworks on total reached
-  - firework quick links ('sold', 'target achieved', 'last message')
 - high/low totals DISABLE TOTAL TICKER (completely & change default)
 - add auction back & 'sold' buttons
+- remove total ticker mode & add new modes (sponsors etc..)
+- configurable slide transition delay?
+- fireworks on total reached
+  - firework quick links ('sold', 'target achieved', 'last message')
 - facts & ava pictures
+
 - sponsors rotation
+
+# todo
 - give preference to NEW insta photos
 - fix video
+- crop ava photos
 
 # on the night
 - disable screensaver / notifications

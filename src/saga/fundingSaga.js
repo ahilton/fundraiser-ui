@@ -5,13 +5,15 @@ import {
     displayMode, donationsUpdate, eventsUpdate, fireworks,
     infoModeIndex,
     instaUpdate, lastEventProcessed,
-    modeUpdate, nextAuctionItem,
+    modeUpdate, nextAuctionItem, previousAuctionItem,
     tickerModeIndex,
     tickerUpdate
 } from "../action/index";
-import {getDisplayMode, getEvents, getLastEventProcessed, getModeIndex, getModes} from "../redux/funding";
+import {getConfig, getDisplayMode, getEvents, getLastEventProcessed, getModeIndex, getModes} from "../redux/funding";
 import {
-    loadDataForAuction, loadDataForAuctionMode, loadDataForLiveAuction, loadDonationsData, loadInstaDisplayData,
+    loadAvaNextPictureData, loadAvaPictureData,
+    loadDataForAuction, loadDataForAuctionMode, loadDataForLiveAuction, loadDonationsData, loadFactData,
+    loadInstaDisplayData, loadSponsorData,
     loadTickerData,
     noop
 } from "./displaySaga";
@@ -144,8 +146,20 @@ function* processEvents() {
                     yield put(fireworks(''))
                     yield call(delay, 5000)
                     break;
+                case 'FIREWORKS_SOLD':
+                    yield put(fireworks('SOLD!'))
+                    yield call(delay, 5000)
+                    break;
+                case 'FIREWORKS_MESSAGE':
+                    var config = yield select(getConfig)
+                    yield put(fireworks(config?config.message:''))
+                    yield call(delay, 5000)
+                    break;
                 case 'AUCTION_NEXT':
                     yield put(nextAuctionItem())
+                    break;
+                case 'AUCTION_PREVIOUS':
+                    yield put(previousAuctionItem())
                     break;
                 default:
                     break;
@@ -192,7 +206,9 @@ function* handleMode(mode) {
 
     //console.log("showing next slide:"+modeName)
     yield put(displayMode(mode.name))
-    yield call(delay, 3000)
+    var config = yield select(getConfig)
+    var delaySecs = (config && config.delay && config.delay > 1)?config.delay:10
+    yield call(delay, delaySecs*1000)
 }
 
 function* interruptIfModeChanges() {
@@ -234,12 +250,12 @@ const tickerModes = [
         name: "TICKER_1",
         mode: "totalOnNight",
         loadDisplay: () => loadTickerData()
-    },
-    {
-        name: "TICKER_2",
-        mode: "targetTicker",
-        loadDisplay: () => loadTickerData()
     }
+    // , {
+    //     name: "TICKER_2",
+    //     mode: "targetTicker",
+    //     loadDisplay: () => loadTickerData()
+    // }
 ]
 const infoModes = [
     {
@@ -260,12 +276,27 @@ const infoModes = [
     {
         name: "AVA",
         mode: "avaInfo",
-        loadDisplay: () => noop()
+        loadDisplay: () => loadAvaPictureData()
     },
+    // {
+    //     name: "THANKS",
+    //     mode: "avaInfo",
+    //     loadDisplay: () => noop()
+    // },
     {
         name: "AUCTION",
-        mode: "avaInfo",
+        mode: "infoAuction",
         loadDisplay: () => loadDataForAuction()
+    },
+    {
+        name: "FACTS",
+        mode: "facts",
+        loadDisplay: () => loadFactData()
+    },
+    {
+        name: "SPONSORS",
+        mode: "sponsors",
+        loadDisplay: () => loadSponsorData()
     },
     {
         name: "FIREWORKS",
@@ -277,13 +308,20 @@ const auctionMode = {
     name: "AUCTION",
     loadDisplay: () => loadDataForLiveAuction()
 }
+const staticMode = {
+    name: "STATIC",
+    loadDisplay: () => noop()
+}
 
 
 function* selectNextSlide() {
     var modes = yield select(getModes)
     // console.log(modes)
 
-    if (modes.auction) {
+    if (modes.staticMode) {
+        return staticMode
+    }
+    else if (modes.auction) {
         return auctionMode
     }
     var modeIndex = yield select(getModeIndex)
@@ -294,7 +332,7 @@ function* selectNextSlide() {
     let activeInfoModes = infoModes.filter(x => modes[x.mode] === true);
 
     if (activeTickerModes.length === 0 && activeInfoModes.length === 0) {
-        return tickerModes[0]
+        return staticMode
     }
     if (activeInfoModes.length > 0 && (displayMode && displayMode.startsWith("TICKER") || activeTickerModes.length === 0)) {
         var index = modeIndex.info + 1

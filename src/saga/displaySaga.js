@@ -3,14 +3,16 @@ import {delay} from 'redux-saga'
 
 import {
     auctionLiveMode,
-    displayMode, fireworks, instaDisplayHash, instaDisplayIndex, instaDisplaySrc, lastDonationProcessedId,
-    nextAuctionItem, showDonation,
+    fireworks,
+    instaDisplayHash,
+    instaDisplayIndex,
+    instaDisplaySrc,
+    lastDonationProcessedId,
+    nextAuctionItem, nextAvaPicture, nextFact, nextSponsor,
+    showDonation,
     tickerDisplayData
 } from "../action/index";
-import {
-    fundingInitialState as auctionDisplayData, getAuctionDisplayData, getConfig, getInstaData, getInstaDisplayData,
-    getTickerData
-} from "../redux/funding";
+import {getAuctionDisplayData, getConfig, getInstaData, getInstaDisplayData, getTickerData} from "../redux/funding";
 
 
 export function* loadInstaDisplayData() {
@@ -52,7 +54,7 @@ export function* loadDonationsData() {
 
     var state = yield select((store) => store.funding)
 
-    if (!state.lastDonations || state.lastDonations.length === 0){
+    if (!state.lastDonations || state.lastDonations.length === 0) {
         return;
     }
     // loop over last donations - starting at the end
@@ -73,7 +75,7 @@ export function* loadDonationsData() {
     }
 
     var donations = yield select((store) => store.funding.lastDonations)
-    if (donations && donations.length > 0){
+    if (donations && donations.length > 0) {
         var randIndex = Math.floor(Math.random() * donations.length)
         yield put(showDonation(donations[randIndex], false))
     }
@@ -86,6 +88,7 @@ export function* loadDataForLiveAuction() {
         yield put(auctionLiveMode(true))
     }
 }
+
 export function* loadDataForAuction() {
     // if live mode = true, set mode = false & reset counter
     var auctionDisplayData = yield select(getAuctionDisplayData)
@@ -94,6 +97,18 @@ export function* loadDataForAuction() {
     } else {
         yield put(nextAuctionItem())
     }
+}
+
+export function* loadAvaPictureData() {
+    yield put(nextAvaPicture())
+}
+
+export function* loadFactData() {
+    yield put(nextFact())
+}
+
+export function* loadSponsorData() {
+    yield put(nextSponsor())
 }
 
 export function* noop() {

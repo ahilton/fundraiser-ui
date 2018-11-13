@@ -95,6 +95,22 @@ html {
   font-weight: 600;
 }
 
+.factSlide p{
+  margin-bottom: 25px;
+  margin-top: 25px;
+}
+.factSlide h1{
+  font-size:44px;
+  color:white;
+  line-height:55px
+}
+.factSlide .factSource{
+  text-align:right;
+  margin-top:50px;
+  color: #e2c75a;
+  font-size:20px;
+}
+
 #progressWidget .pt-progress-meter{
   background-color: #f3d85c;
 }
