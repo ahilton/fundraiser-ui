@@ -2,7 +2,7 @@ import {call, put, select} from 'redux-saga/effects'
 import {delay} from 'redux-saga'
 
 import {
-    auctionLiveMode,
+    auctionLiveMode, displayMode,
     fireworks,
     instaDisplayHash,
     instaDisplayIndex,
@@ -109,6 +109,8 @@ export function* loadFactData() {
 
 export function* loadSponsorData() {
     yield put(nextSponsor())
+    yield put(displayMode("FRIENDS"))
+    yield call(delay, 4000)
 }
 
 export function* noop() {

@@ -20,6 +20,7 @@ import {
 // import {getLastEvent, getLastTimestamp, getTickData} from "../redux/funding";
 const axios = require('axios')
 
+// const hostname = 'https://galax-221120.appspot.com'
 const hostname = 'http://localhost:8080'
 
 function* pollConfig() {
@@ -207,7 +208,7 @@ function* handleMode(mode) {
     //console.log("showing next slide:"+modeName)
     yield put(displayMode(mode.name))
     var config = yield select(getConfig)
-    var delaySecs = (config && config.delay && config.delay > 1)?config.delay:10
+    var delaySecs = (config && config.delay && config.delay > 1)?config.delay:1
     yield call(delay, delaySecs*1000)
 }
 

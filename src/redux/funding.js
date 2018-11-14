@@ -270,7 +270,7 @@ displayData: {
                 displayData: {
                     ...state.displayData,
                     sponsor: {
-                        index: state.displayData.sponsor.index > 7? 0: state.displayData.sponsor.index+1
+                        index: state.displayData.sponsor.index > 11? 0: state.displayData.sponsor.index+1
                     }
                 }
             }

@@ -17,6 +17,7 @@ import StaticSlide from "./container/StaticSlide";
 import AvaPictureSlide from "./container/AvaPictureSlide";
 import FactsSlide from "./container/FactsSlide";
 import SponsorsSlide from "./container/SponsorsSlide";
+import FriendsSponsorSlide from "./container/FriendsSponsorSlide";
 
 class AppNew extends Component {
 
@@ -50,6 +51,9 @@ class AppNew extends Component {
                 break;
             case 'FACTS':
                 comp = <FactsSlide/>
+                break;
+            case 'FRIENDS':
+                comp = <FriendsSponsorSlide/>
                 break;
             case 'SPONSORS':
                 comp = <SponsorsSlide/>
