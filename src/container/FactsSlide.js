@@ -48,8 +48,8 @@ class FactsSlide extends Component {
                 scaleX: 1
             },
             top: {
-                scaleY: 1.1,
-                scaleX: 1.1,
+                scaleY: 1.2,
+                scaleX: 1.2,
                 transition: {
                     duration: 35000,
                 }

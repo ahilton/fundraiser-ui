@@ -36,22 +36,17 @@ const auctionItems = [
                     borderRadius: '30px'
                 }}/>
             </div>,
-        right: <div style={{
-            textAlign: 'left',
-            fontSize: '30px',
-            padding: '20px',
-            height: '500px',
-            color: '#333'
-        }}>
-            <p>Donated by:</p>
-            <p style={{color: '#000', fontSize: '34px'}}><b>Christopher Blank Furniture</b></p>
-            <p>Value: <b style={{color: '#000', fontSize: '34px'}}>$5,500</b></p>
+        right: <div className='auctionDetail auctionDetailTop'>
+            <ul>
+                <li>Donated by: <p><b>Christopher Blank Furniture</b></p></li>
+                <li></li>
+                <li>Value: <b>$5,500</b></li>
+            </ul>
         </div>
     }, {
         number: 2,
         title: 'Kallure',
-        subTitle: <div><p>3.4ct emerald cut green amethyst and diamond ring set in 18ct white gold</p><p>custom made for
-            you</p></div>,
+        subTitle: <div><p>3.4ct emerald cut green amethyst and diamond ring set in 18ct white gold - custom made for you</p></div>,
         bgImg: auction2JewelBg,
         right:
             <div style={{
@@ -64,7 +59,7 @@ const auctionItems = [
             </div>,
         left: <div className='auctionDetail auctionDetailBottom'>
             <ul>
-                <li>Join Kara Breadmore at Kallure Studio and mark the occasion with champagne and a custom fitting.
+                <li><b>Join Kara Breadmore at Kallure Studio and mark the occasion with champagne and a custom fitting.</b>
                 </li>
                 <li>VALUE: <b>$5,200</b></li>
             </ul>
@@ -72,7 +67,7 @@ const auctionItems = [
     }, {
         number: 3,
         title: 'Barnbougle Dunes and Launceston Golf Club',
-        subTitle: '4 people for 3 nights',
+        subTitle: 'Tasmanian Golfers Dream Stay - 4 people, 3 nights, 2 courses',
         bgImg: auction3GolfBg,
         right:
             <div style={{
@@ -84,12 +79,11 @@ const auctionItems = [
             </div>,
         left:
             <div className='auctionDetail'>
-                <h1>Tasmanian Golfers Dream Stay - 4 people, 3 nights, 2 courses</h1>
                 <ul>
                     <li>3 night stay in a central 2 bedroom Launceston cottage w/ spa</li>
                     <li>Round of 18 at the famous <b>BARNBOUGLE DUNES</b></li>
                     <li>Round of 18 at the <b>LAUNCESTON GOLF CLUB</b> with cart</li>
-                    <li>Tamar Valley Wine Pack plus MIZUNO Golf Travel Bag (1 per booking)</li>
+                    <li><b>Tamar Valley Wine Pack</b> plus <b>MIZUNO Golf Travel Bag</b> (1 per booking)</li>
                 </ul>
             </div>
     }, {
@@ -108,7 +102,7 @@ const auctionItems = [
                 </div>
                 <div className='auctionDetail'>
                     <ul>
-                        <li>140x150 oil painting on Belgian linen</li>
+                        <li><b>140x150 oil painting on Belgian linen</b></li>
                         <li>‘String Bow’ was made especially for Ava’s Gala and is a part of the Tasting Flowers
                             series
                         </li>
@@ -137,19 +131,18 @@ const auctionItems = [
         }}>
             <div>
                 <img src={sponsorMbb} style={{
-                    width: '300px'
+                    width: '400px'
                 }}/>
             </div>
-            <p style={{
-                marginBottom: 40,
-                textAlign: 'LEFT'
+            <ul style={{
+                textAlign: 'left'
             }}>
-                The all new A-Class completely redefines modern luxury and interior design in the compact class. The
-                Hatchback’s many technological advances set revolutionary standards. Enjoy the Mercedes-Benz User
-                Experience, a multimedia system whose artificial intelligence makes it unique in its ability to learn.
-            </p>
-            <p>VALUE: <b>$49 245 (drive away)</b>
-            </p>
+                <li>
+                The all new A-Class completely redefines modern luxury and interior design in the compact class.
+                </li>
+                <li><br/><b>$49,245</b> (drive away)
+                </li>
+            </ul>
         </div>
     }, {
         number: 6,
@@ -159,8 +152,8 @@ const auctionItems = [
         left: <div className='auctionDetail auctionDetailTop'>
 
             <ul>
-                <li>Transform your home into a fine dining restaurant with one of the world’s best French chefs and
-                    service by a dedicated maître d’
+                <li><b>Transform your home into a fine dining restaurant with one of the world’s best French chefs and
+                    service by a dedicated maître d’</b>
                 </li>
                 <li>VALUE: <b>Priceless</b></li>
             </ul>
@@ -172,8 +165,8 @@ const auctionItems = [
         bgImg: auction7DriveBg,
         left: <div className='auctionDetail auctionDetailTop'>
             <ul>
-                <li>Mercedes-Benz Brighton will make available to you and 11 guests a selection of vehicles covering all variants, from the nimble and popular A-Class through to the high tech executive S-Class and performance AMG.</li>
-                <li>Countryside driving experience to the Mornington Peninsula with a sumptuous dining experience with refreshments and entertainment.</li>
+                {/*<li>Mercedes-Benz Brighton will make available to you and 11 guests a selection of vehicles covering all variants, from the nimble and popular A-Class through to the high tech executive S-Class and performance AMG.</li>*/}
+                <li><b>Countryside driving experience to the Mornington Peninsula with a sumptuous dining experience with refreshments and entertainment.</b></li>
 
                 <li>VALUE: <b>$6,000</b> ($500 per head)</li>
             </ul>
@@ -194,20 +187,21 @@ const auctionItems = [
         right: <div className='auctionDetail'>
             <ul>
                 {/*<li>The villa is fully self-contained for quiet nights in, catered by your personal chef, and only 15-45 minutes away from everything beautiful Bali has to offer; stunning beaches, superb dining, nightlife and shopping in Canngu, Seminyak and Kuta- with a private driver to get you there.</li>*/}
-                <li>Enjoy the tranquillity of the open-air lounge and dining area, the outdoor terrace with covered lounge and sunbathing deckchairs and the privacy of your very own lush garden swimming pool.</li>
-                <li>VALUE: <b>$5,000</b></li>
+                <li><b>Enjoy the tranquillity of the open-air lounge and dining area, the outdoor terrace with covered lounge and sunbathing deckchairs and the privacy of your very own lush garden swimming pool.</b></li>
+                <li><br/>VALUE: <b>$5,000</b></li>
             </ul>
         </div>
     }, {
         number: 9,
         title: 'TaylorMade Golf Package',
-        subTitle: '',
+        subTitle: 'Full set (14) of TaylorMade’s PGA tour approved clubs & TaylorMade golf bag',
         bgImg: auction9Golf,
         left: <div className='auctionDetail'>
             <ul>
-                <li>Full set (14) of TaylorMade’s PGA tour approved clubs</li>
-                <li>TaylorMade golf bag</li>
-                <li>Gears by TaylorMade club fitting session at the brand new Performance Lab at TaylorMade Australia HQ. Gears is a full swing club and body tracking system used by PGA pros, club fitters, and club manufacturers to measure and analyse every nuance of a swing, in full 3D, from address to follow through.</li>
+
+                <li><b>Gears by TaylorMade club fitting session at the brand new Performance Lab at TaylorMade Australia HQ.
+                    {/*Gears is a full swing club and body tracking system used by PGA pros, club fitters, and club manufacturers to measure and analyse every nuance of a swing, in full 3D, from address to follow through*/}
+                </b></li>
                 <li>VALUE: <b>$5,000</b></li>
             </ul>
         </div>

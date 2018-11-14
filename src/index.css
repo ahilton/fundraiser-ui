@@ -27,17 +27,21 @@ html {
   margin-right:30px;
   background-color: #f3d85c;
   padding: 10px;
+
   border-radius: 30px;
   margin-top: -10px;
   margin-left: 20px;
 }
 .auctionTitle h1{
-  font-variant: small-caps;
-  margin-bottom: 25px;
+  /*font-variant: small-caps;*/
+  line-height:1em;
+  font-size: 60px;
+  margin-bottom: 20px;
   color: #efefef;
 }
 .auctionTitle h2{
-  font-size: 30px;
+  line-height:1em;
+  font-size: 40px;
   font-weight: 300;
   color: #e2c75a;
 }
@@ -55,9 +59,10 @@ html {
   /*font-family: Georgia;*/
 }
 .auctionTitle .auctionItemNumber h1 b{
-  font-size: 60px;
-  font-variant: small-caps;
-  font-weight: normal;
+  /*font-size: 60px;*/
+  font-variant: normal;
+  /*font-variant: small-caps;*/
+  font-weight: 600;
   /*font-family: Georgia;*/
 }
 
@@ -78,10 +83,12 @@ html {
   margin-bottom: 300px;
 }
 
+.auctionDetail{
+  font-weight: 300;
+  font-size: 34px;
+}
 .auctionDetail h1{
-  font-weight: 400;
-  font-size: 30px;
-  line-height: 50px;
+  line-height: 1em;
   color: #e2c75a;
 }
 .auctionDetail ul{
@@ -89,10 +96,14 @@ html {
 }
 .auctionDetail ul li{
   margin-top: 10px;
+  list-style-type: none;
+  color: #dddddd
 }
 
 .auctionDetail ul li b{
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 38px;
+  color: white
 }
 
 .factSlide p{
@@ -100,15 +111,15 @@ html {
   margin-top: 25px;
 }
 .factSlide h1{
-  font-size:44px;
+  font-size:60px;
   color:white;
-  line-height:55px
+  line-height:1.1em
 }
 .factSlide .factSource{
-  text-align:right;
+  /*text-align:right;*/
   margin-top:50px;
   color: #e2c75a;
-  font-size:20px;
+  font-size:25px;
 }
 
 #progressWidget .pt-progress-meter{
