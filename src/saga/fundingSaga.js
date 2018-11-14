@@ -20,7 +20,6 @@ import {
 // import {getLastEvent, getLastTimestamp, getTickData} from "../redux/funding";
 const axios = require('axios')
 
-// const hostname = 'https://galax-221120.appspot.com'
 const hostname = 'http://localhost:8080'
 
 function* pollConfig() {
