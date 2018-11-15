@@ -18,6 +18,7 @@ import AvaPictureSlide from "./container/AvaPictureSlide";
 import FactsSlide from "./container/FactsSlide";
 import SponsorsSlide from "./container/SponsorsSlide";
 import FriendsSponsorSlide from "./container/FriendsSponsorSlide";
+import InstaIntroSlide from "./container/InstaIntroSlide";
 
 class AppNew extends Component {
 
@@ -33,6 +34,9 @@ class AppNew extends Component {
                 break;
             case 'FIREWORKS':
                 comp = <FireworksSlide message={fireworksText}/>
+                break;
+            case 'INSTAINTRO':
+                comp = <InstaIntroSlide/>
                 break;
             case 'INSTA':
                 comp = <InstaSlide/>

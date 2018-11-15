@@ -16,6 +16,8 @@ import {getAuctionDisplayData, getConfig, getInstaData, getInstaDisplayData, get
 
 
 export function* loadInstaDisplayData() {
+
+
     var instaData = yield select(getInstaData)
     var instaDisplayData = yield select(getInstaDisplayData)
     var config = yield select(getConfig)
@@ -31,6 +33,8 @@ export function* loadInstaDisplayData() {
         yield put(instaDisplayIndex(index))
         yield put(instaDisplaySrc(instaData[index].thumbnailUrl))
     }
+    yield put(displayMode("INSTAINTRO"))
+    yield call(delay, 4000)
 }
 
 export function* loadTickerData() {

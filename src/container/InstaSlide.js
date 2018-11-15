@@ -6,6 +6,7 @@ import posed from "react-pose";
 import Slide from "./Slide";
 import {getConfig, getInstaDisplayData} from "../redux/funding";
 import Footer from "../components/Footer";
+import InstagramHashes from "../components/InstagramHashes";
 
 var selfie = require('../img/peopleSelfie.png')
 var igram = require('../img/instragramLogo.png')
@@ -20,20 +21,19 @@ class InstaSlide extends Component {
 
         const Notify = posed.div({
             bottom: {
-                y: 100
+                y: 50
             },
             top: {
-                y: -100,
+                y: -50,
                 transition: {
                     // loop:Infinity,
-                    duration: 25000,
+                    duration: 35000,
                     //yoyo: Infinity
                 }
             }
         })
 
         return (
-            <Slide showFooter={false} showHeader={false}>
 
 
                 <div style={{
@@ -44,16 +44,15 @@ class InstaSlide extends Component {
                     width: '100%',
                     backgroundColor: '#000'
                 }}>
-                    <Footer className='insta' {...{
-                        lastSystemMessage: ""
+                    {/*<Footer className='insta' {...{*/}
+                        {/*lastSystemMessage: ""*/}
+                    {/*}}>*/}
 
-                    }}>
-
-                        <img src={igram} width='100px'/>
-                        <p>
-                            &nbsp;&nbsp;<b>#{hash}</b>
-                        </p>
-                    </Footer>
+                        {/*<img src={igram} width='100px'/>*/}
+                        {/*<p>*/}
+                            {/*&nbsp;&nbsp;<b>Support</b>*/}
+                        {/*</p>*/}
+                    {/*</Footer>*/}
                     <div style={{
                         width: 600,
                         flex: '60%',
@@ -65,6 +64,7 @@ class InstaSlide extends Component {
                     </div>
                     <div className="softFontBlue" style={{
                         width: 600,
+                        marginRight: 200,
                         height: '100%',
                         display: 'flex',
                         flex: '40%',
@@ -75,24 +75,27 @@ class InstaSlide extends Component {
                             initialPose={'bottom'}
                             pose={'top'}
                         >
-                            <div style={{
-                                // flex: 1,
-                                fontSize: 50,
-                                width: 400,
-                                fontWeight: 400
-                            }}>
-                                <p>Your Instragram on the big screen!</p>
+                            <div >
+                                <h1 style={{
+                                    // flex: 1,
+                                    width: 400,
+                                    color: 'white',
+                                    fontSize: 50,
+                                    lineHeight: '1.1em',
+                                }}>...and get your photo on the big screen!</h1>
 
                                 <p>
                                     <img src={igram} width='200px'/>
                                 </p>
-                                <p style={{
-                                    color:'pink',
-                                    fontVariant: 'small-caps',
-                                    letterSpacing:5
-                                }}>
-                                    <b>#{hash}</b>
-                                </p>
+                                {/*<p style={{*/}
+                                    {/*color:'pink',*/}
+                                    {/*fontVariant: 'small-caps',*/}
+                                    {/*letterSpacing:5*/}
+                                {/*}}>*/}
+                                    {/*<b>#{hash}</b>*/}
+                                {/*</p>*/}
+                                <InstagramHashes hash={hash}/>
+
                                 <div style={{
                                     color: '#E99F86',
                                     marginTop: 50
@@ -105,7 +108,6 @@ class InstaSlide extends Component {
                         </Notify>
                     </div>
                 </div>
-            </Slide>
         )
     }
 }
