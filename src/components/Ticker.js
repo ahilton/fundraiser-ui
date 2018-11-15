@@ -13,11 +13,11 @@ export default class Ticker extends Component {
 
             above: {
                 opacity: 0,
-                y: -500
+                // y: -500
             },
             normal: {
                 opacity: 1,
-                y: 0
+                // y: 0
             }
         })
 

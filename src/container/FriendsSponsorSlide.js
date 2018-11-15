@@ -19,7 +19,7 @@ export default class FriendsSponsorSlide extends Component {
                 backgroundPosition: 'center top',
             }}>
                 {/*<img src={staticImg} style={{width: '100%', position:'absolute', zIndex:-10}}/>*/}
-                <div style={{textAlign:'center'}}>
+                <div style={{textAlign:'center', marginTop:-100}}>
                     <h1 style={{
                         color:'white',
                         fontSize: 80,

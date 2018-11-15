@@ -15,9 +15,10 @@
 
 # todo
 - give preference to NEW insta photos
-- fix video
-- crop ava photos
+- fix fireworks video
+- update ava photos
 - pick sensible delays...
+
 
 # on the night
 - disable screensaver / notifications

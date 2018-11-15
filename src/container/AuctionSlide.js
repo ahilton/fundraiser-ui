@@ -27,13 +27,13 @@ const auctionItems = [
         number: 1,
         title: '2019 Mercedes-Benz A 180',
         subTitle: 'Global benchmark in the compact class',
-        left:
+        left: () =>
             <div>
                 <img src={auction5Merc} style={{
                     width: '800px'
                 }}/>
             </div>,
-        right: <div className='auctionDetail' style={{
+        right: (hideValue) => <div className='auctionDetail' style={{
             textAlign: 'center',
             backgroundColor: 'black',
             margin: 50
@@ -49,8 +49,7 @@ const auctionItems = [
                 <li>
                     The all new A-Class completely redefines modern luxury and interior design in the compact class.
                 </li>
-                <li><br/><b>$49 245</b> (drive away)
-                </li>
+                {!hideValue && <li><br/><b>$49 245</b> (drive away) </li>}
             </ul>
         </div>
     }, {
@@ -58,7 +57,7 @@ const auctionItems = [
         title: 'Christopher Blank',
         subTitle: 'Custom created furniture for a lifetime',
         bgImg: auction1ChrisBg,
-        left:
+        left:() =>
             <div>
                 <img src={auction1Chris} style={{
                     width: '600px',
@@ -66,7 +65,7 @@ const auctionItems = [
                     borderRadius: '30px'
                 }}/>
             </div>,
-        right: <div className='auctionDetail '>
+        right: () => <div className='auctionDetail '>
             <ul>
                 <li><b>A Melbourne-made, custom-design studio, honouring the integrity of the materials we use.</b></li>
                 <li>Choose from their stunning range of coffee tables, beds, entertainment units, dining tables, side tables, mirrors and shelving, or visit their studio and design a custom piece that suits your space and soul.</li>
@@ -78,7 +77,7 @@ const auctionItems = [
         title: 'Kallure',
         subTitle: <div><p>3.4ct emerald cut green amethyst and diamond ring set in 18ct white gold - custom made for you</p></div>,
         bgImg: auction2JewelBg,
-        right:
+        right:() =>
             <div style={{
                 marginRight: '50px'
             }}>
@@ -87,7 +86,7 @@ const auctionItems = [
                 }}/>
 
             </div>,
-        left: <div className='auctionDetail auctionDetailBottom'>
+        left: () => <div className='auctionDetail auctionDetailBottom'>
             <ul>
                 <li><b>Join Kara Breadmore at Kallure Studio and mark the occasion with champagne and a custom fitting.</b>
                 </li>
@@ -99,7 +98,7 @@ const auctionItems = [
         title: 'Barnbougle Dunes and Launceston Golf Club',
         subTitle: 'Tasmanian Golfers Dream Stay - 4 people, 3 nights, 2 courses',
         bgImg: auction3GolfBg,
-        right:
+        right:() =>
             <div style={{
                 marginTop: '150px'
             }}>
@@ -107,7 +106,7 @@ const auctionItems = [
                     width: '500px'
                 }}/>
             </div>,
-        left:
+        left:() =>
             <div className='auctionDetail'>
                 <ul>
                     <li>3 night stay in a central 2 bedroom Launceston cottage w/ spa</li>
@@ -121,7 +120,7 @@ const auctionItems = [
         title: 'Kerry Armstrong',
         subTitle: 'Internationally recognised abstract impressionist',
         bgImg: auction4KerryBg,
-        left:
+        left:(hideValue) =>
             <div>
                 <div style={{
                     marginRight: '200px'
@@ -136,10 +135,10 @@ const auctionItems = [
                         <li>‘String Bow’ was made especially for Ava’s Gala and is a part of the Tasting Flowers
                             series
                         </li>
-                        <li>VALUE: <b>$10 500</b></li>
-                        <li>Conditions: This original piece can be swapped for another of Kerry’s artworks to the same
+                        {!hideValue && <li>VALUE: <b>$10 500</b></li>}
+                        {!hideValue && <li>Conditions: This original piece can be swapped for another of Kerry’s artworks to the same
                             value.
-                        </li>
+                        </li>}
                     </ul>
                 </div>
             </div>
@@ -149,7 +148,7 @@ const auctionItems = [
         title: 'Phillipe Mouchel',
         subTitle: 'Private dinner party for 10 with award-winning French chef',
         bgImg: auction6Dinner,
-        left: <div className='auctionDetail auctionDetailTop'>
+        left: () => <div className='auctionDetail auctionDetailTop'>
 
             <ul>
                 <li><b>Transform your home into a fine dining restaurant with one of the world’s best French chefs and
@@ -163,12 +162,12 @@ const auctionItems = [
         title: 'Mercedes-Benz Brighton Drive Day for 12 guests',
         subTitle: 'Treat your team and clients to the ultimate experience in prestige vehicles',
         bgImg: auction7DriveBg,
-        left: <div className='auctionDetail auctionDetailTop'>
+        left: (hideValue) => <div className='auctionDetail auctionDetailTop'>
             <ul>
                 {/*<li>Mercedes-Benz Brighton will make available to you and 11 guests a selection of vehicles covering all variants, from the nimble and popular A-Class through to the high tech executive S-Class and performance AMG.</li>*/}
                 <li><b>Countryside driving experience to the Mornington Peninsula with a sumptuous dining experience with refreshments and entertainment.</b></li>
 
-                <li>VALUE: <b>$6 000</b> ($500 per head)</li>
+                {!hideValue && <li>VALUE: <b>$6 000</b> ($500 per head)</li>}
             </ul>
         </div>
     }, {
@@ -176,7 +175,7 @@ const auctionItems = [
         title: 'Luxury Bali Escape',
         subTitle: '8 person private villa for 5 nights',
         bgImg: auction8BaliBg,
-        left:
+        left:() =>
             <div style={{
                 marginRight: '50px'
             }}>
@@ -184,7 +183,7 @@ const auctionItems = [
                     width: '500px'
                 }}/>
             </div>,
-        right: <div className='auctionDetail'>
+        right: () => <div className='auctionDetail'>
             <ul>
                 {/*<li>The villa is fully self-contained for quiet nights in, catered by your personal chef, and only 15-45 minutes away from everything beautiful Bali has to offer; stunning beaches, superb dining, nightlife and shopping in Canngu, Seminyak and Kuta- with a private driver to get you there.</li>*/}
                 <li><b>Enjoy the tranquillity of the open-air lounge and dining area, the outdoor terrace with covered lounge and sunbathing deckchairs and the privacy of your very own lush garden swimming pool.</b></li>
@@ -196,7 +195,7 @@ const auctionItems = [
         title: 'TaylorMade Golf Package',
         subTitle: 'Full set (14) of TaylorMade’s PGA tour approved clubs & TaylorMade golf bag',
         bgImg: auction9Golf,
-        left: <div className='auctionDetail'>
+        left: () => <div className='auctionDetail'>
             <ul>
 
                 <li><b>Gears by TaylorMade club fitting session at the brand new Performance Lab at TaylorMade Australia HQ.
@@ -214,7 +213,7 @@ class AuctionSlide extends Component {
 
     render() {
 
-        const {liveMode, displayIndex} = this.props.displayData
+        const {hideValue, displayIndex} = this.props.displayData
 
         const Notify = posed.div({
             bottom: {
@@ -280,13 +279,13 @@ class AuctionSlide extends Component {
                             flex: '60%',
 
                         }}>
-                            {item.left && item.left}
+                            {item.left && item.left(hideValue)}
                         </div>
                         <div className="softFontBlue" style={{
                             // display: 'flex',
                             flex: '40%',
                         }}>
-                            {item.right && item.right}
+                            {item.right && item.right(hideValue)}
                         </div>
                     </div>
 

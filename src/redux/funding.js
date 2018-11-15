@@ -9,6 +9,7 @@ import {
     SHOW_DONATION
 } from '../action'
 import {
+    AUCTION_DISPLAY_INDEX,
     AUCTION_LIVE_MODE,
     DONATIONS_UPDATE, EVENTS_UPDATE, FIREWORKS,
     INFO_MODE_INDEX,
@@ -61,6 +62,7 @@ export const fundingInitialState = {
             total: 250000
         },
         auction: {
+            hideValue: false,
             liveMode: false,
             displayIndex: 0
         },
@@ -155,7 +157,9 @@ const funding = (state = fundingInitialState, action) => {
                     avaInfo: extractValueFromRawConfig(action.data, 'AVA_INFO_MODE', state.modes.avaInfo),
                     infoAuction: extractValueFromRawConfig(action.data, 'INFO_AUCTION_MODE', state.modes.infoAuction),
                     facts: extractValueFromRawConfig(action.data, 'FACTS_MODE', state.modes.facts),
-                    sponsors: extractValueFromRawConfig(action.data, 'SPONSORS_MODE', state.modes.sponsors)
+                    sponsors: extractValueFromRawConfig(action.data, 'SPONSORS_MODE', state.modes.sponsors),
+                    kerry: extractValueFromRawConfig(action.data, 'KERRY_MODE', state.modes.kerry),
+                    mbb: extractValueFromRawConfig(action.data, 'MBB_MODE', state.modes.mbb)
                 }
             }
         case TICKER_MODE_INDEX:
@@ -225,8 +229,21 @@ displayData: {
                 displayData: {
                     ...state.displayData,
                     auction: {
+                        hideValue: false,
                         liveMode: action.data,
                         displayIndex: 0
+                    }
+                }
+            }
+        case AUCTION_DISPLAY_INDEX:
+            return {
+                ...state,
+                displayData: {
+                    ...state.displayData,
+                    auction: {
+                        ...state.displayData.auction,
+                        hideValue: true,
+                        displayIndex: action.data
                     }
                 }
             }
@@ -237,6 +254,7 @@ displayData: {
                     ...state.displayData,
                     auction: {
                         ...state.displayData.auction,
+                        hideValue: false,
                         displayIndex: state.displayData.auction.displayIndex < 1?
                             0: state.displayData.auction.displayIndex-1
                     }
@@ -249,6 +267,7 @@ displayData: {
                     ...state.displayData,
                     auction: {
                         ...state.displayData.auction,
+                        hideValue: false,
                         displayIndex: state.displayData.auction.displayIndex > 7?
                             0: state.displayData.auction.displayIndex+1
                     }

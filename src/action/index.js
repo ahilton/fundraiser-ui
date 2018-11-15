@@ -31,6 +31,7 @@ export const FIREWORKS = 'FIREWORKS'
 export const AUCTION_LIVE_MODE = 'AUCTION_LIVE_MODE'
 export const NEXT_AUCTION_ITEM = 'NEXT_AUCTION_ITEM'
 export const PREVIOUS_AUCTION_ITEM = 'PREVIOUS_AUCTION_ITEM'
+export const AUCTION_DISPLAY_INDEX = 'AUCTION_DISPLAY_INDEX'
 
 export const showDonation = (donation, isNew) => {
     return {type: SHOW_DONATION, data: {
@@ -81,6 +82,9 @@ export const infoModeIndex = (index) => {
 }
 export const instaDisplayIndex = (index) => {
     return {type: INSTA_DISPLAY_INDEX, data: index}
+}
+export const auctionDisplayIndex = (index) => {
+    return {type: AUCTION_DISPLAY_INDEX, data: index}
 }
 export const instaDisplaySrc = (src) => {
     return {type: INSTA_DISPLAY_SRC, data: src}

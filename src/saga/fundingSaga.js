@@ -13,7 +13,7 @@ import {getConfig, getDisplayMode, getEvents, getLastEventProcessed, getModeInde
 import {
     loadAvaNextPictureData, loadAvaPictureData,
     loadDataForAuction, loadDataForAuctionMode, loadDataForLiveAuction, loadDonationsData, loadFactData,
-    loadInstaDisplayData, loadSponsorData,
+    loadInstaDisplayData, loadKerryAuctionItem, loadMbbAuctionItem, loadSponsorData,
     loadTickerData,
     noop
 } from "./displaySaga";
@@ -246,11 +246,11 @@ __proto__: Object
  */
 
 const tickerModes = [
-    {
-        name: "TICKER_1",
-        mode: "totalOnNight",
-        loadDisplay: () => loadTickerData()
-    }
+    // {
+    //     name: "TICKER_1",
+    //     mode: "totalOnNight",
+    //     loadDisplay: () => loadTickerData()
+    // }
     // , {
     //     name: "TICKER_2",
     //     mode: "targetTicker",
@@ -258,6 +258,11 @@ const tickerModes = [
     // }
 ]
 const infoModes = [
+    {
+        name: "TICKER_1",
+        mode: "totalOnNight",
+        loadDisplay: () => loadTickerData()
+    },
     {
         name: "MESSAGE",
         mode: "message",
@@ -308,6 +313,14 @@ const auctionMode = {
     name: "AUCTION",
     loadDisplay: () => loadDataForLiveAuction()
 }
+const kerryMode = {
+    name: "KERRY",
+    loadDisplay: () => loadKerryAuctionItem()
+}
+const mbbMode = {
+    name: "MBB",
+    loadDisplay: () => loadMbbAuctionItem()
+}
 const staticMode = {
     name: "STATIC",
     loadDisplay: () => noop()
@@ -323,6 +336,12 @@ function* selectNextSlide() {
     }
     else if (modes.auction) {
         return auctionMode
+    }
+    else if (modes.kerry) {
+        return kerryMode
+    }
+    else if (modes.mbb) {
+        return mbbMode
     }
     var modeIndex = yield select(getModeIndex)
     var displayMode = yield select(getDisplayMode)

@@ -50,6 +50,8 @@ class AppNew extends Component {
             // case 'AVA':
             //     comp = <ThanksSlide {...{}}/>
             //     break;
+            case 'KERRY':
+            case 'MBB':
             case 'AUCTION':
                 comp = <AuctionSlide/>
                 break;

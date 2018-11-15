@@ -2,6 +2,7 @@ import {call, put, select} from 'redux-saga/effects'
 import {delay} from 'redux-saga'
 
 import {
+    auctionDisplayIndex,
     auctionLiveMode, displayMode,
     fireworks,
     instaDisplayHash,
@@ -12,7 +13,10 @@ import {
     showDonation,
     tickerDisplayData
 } from "../action/index";
-import {getAuctionDisplayData, getConfig, getInstaData, getInstaDisplayData, getTickerData} from "../redux/funding";
+import {
+    getAuctionDisplayData, getConfig, getDisplayMode, getInstaData, getInstaDisplayData,
+    getTickerData
+} from "../redux/funding";
 
 
 export function* loadInstaDisplayData() {
@@ -103,6 +107,16 @@ export function* loadDataForAuction() {
     }
 }
 
+export function* loadKerryAuctionItem() {
+    yield put(auctionDisplayIndex(4))
+}
+
+export function* loadMbbAuctionItem() {
+    var auctionDisplayData = yield select(getAuctionDisplayData)
+    var nextDisplay = auctionDisplayData.displayIndex === 6?0:6
+    yield put(auctionDisplayIndex(nextDisplay))
+}
+
 export function* loadAvaPictureData() {
     yield put(nextAvaPicture())
 }
@@ -112,9 +126,12 @@ export function* loadFactData() {
 }
 
 export function* loadSponsorData() {
+    var mode = yield select(getDisplayMode)
+    if (mode !== 'SPONSORS'){
+        yield put(displayMode("FRIENDS"))
+        yield call(delay, 4000)
+    }
     yield put(nextSponsor())
-    yield put(displayMode("FRIENDS"))
-    yield call(delay, 4000)
 }
 
 export function* noop() {

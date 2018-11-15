@@ -39,7 +39,7 @@ class InstaIntroSlide extends Component {
                         marginBottom: 50
                         // margin: '0 auto 100 auto',
                         // width: '66%'
-                    }}>Share our magical night with the world and help drive more live donations...</h1>
+                    }}>Share our magical night and help drive more donations for Ava...</h1>
 
 
                     <InstagramHashes hash={hash}/>

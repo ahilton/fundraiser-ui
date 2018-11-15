@@ -11,7 +11,7 @@ export default class InstagramHashes extends Component {
                     hash && hash.split(",").map(str =>
                         <h2 key={str + "instaHash"} style={{
                             color: '#ffe166',
-                            fontSize: 50,
+                            fontSize: 40,
                             fontWeight: 500,
                             marginBottom:30,
                             letterSpacing:'3px'

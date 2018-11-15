@@ -13,6 +13,7 @@ var ava6 = require('../img/ava6.png')
 var ava7 = require('../img/ava7.png')
 var ava8 = require('../img/ava8.png')
 var ava9 = require('../img/ava9.png')
+var ava10 = require('../img/ava10.png')
 
 const images = [
     ava1,
@@ -23,7 +24,8 @@ const images = [
     ava6,
     ava7,
     ava8,
-    ava9
+    ava9,
+    ava10
 ]
 
 class AvaPictureSlide extends Component {
