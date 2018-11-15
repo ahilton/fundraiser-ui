@@ -65,12 +65,11 @@ import fresco from '../img/sponsors-fresco.png'
 import cocon from '../img/sponsors-cocon.png'
 import motto from '../img/sponsor-motto.png'
 import tla from '../img/sponsor-tla.jpg'
-
-
+import propharma from '../img/sponsor-pro-pharma.png'
+import selements from '../img/sponsors-7e.png'
 
 // import lion from '../img/sponsor-lion.png'
 // import ff from '../img/sponsor-ff.png'
-// import selements from '../img/sponsors-7e.png'
 // import dairy from '../img/sponsor-dairy.png'
 // import projekt from '../img/sponsor-projekt.jpg'
 // import sam from '../img/sponsor-winesam.png'
@@ -90,7 +89,6 @@ import tla from '../img/sponsor-tla.jpg'
 // import grammar from '../img/sponsor-grammar.jpg'
 // import ao from '../img/sponsor-ao.png'
 // import prol from '../img/sponsor-prol.png'
-// import propharma from '../img/sponsor-pro-pharma.png'
 
 
 
@@ -156,7 +154,9 @@ electrolux,
 fresco,
 cocon,
 motto,
-tla
+tla,
+    selements,
+    propharma,
 ]
 
 const slidesPerPage = 6
