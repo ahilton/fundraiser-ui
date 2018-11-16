@@ -279,7 +279,7 @@ displayData: {
                 displayData: {
                     ...state.displayData,
                     picture: {
-                        index: state.displayData.picture.index > 7? 0: state.displayData.picture.index+1
+                        index: state.displayData.picture.index > 15? 0: state.displayData.picture.index+1
                     }
                 }
             }

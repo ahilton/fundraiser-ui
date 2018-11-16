@@ -58,6 +58,10 @@ import pharma from '../img/sponsor-pharma.png'
 import dius from '../img/sponsor-dius.png'
 import soul from '../img/sponsor-loveyoursoul.png'
 import muma from '../img/sponsor-muma.png'
+import ausGp from '../img/sponsor-aus-gp.png'
+import blackrockC from '../img/sponsor-blackrockcellars.jpg'
+import wilddog from '../img/sponsor-wilddog.png'
+
 import smallprint from '../img/sponsor-smallprint.jpg'
 import chemist from '../img/sponsor-chemist.png'
 import electrolux from '../img/sponsors-electrolux.png'
@@ -120,6 +124,9 @@ bc,
 plaza,
 converse,
 merlin,
+ausGp,
+blackrockC,
+wilddog,
 sealife,
 cablepark,
 smiggle,
