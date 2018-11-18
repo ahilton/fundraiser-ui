@@ -12,38 +12,22 @@
   - firework quick links ('sold', 'target achieved', 'last message')
 - facts & ava pictures
 - sponsors rotation
+- update ava photos
 
 # todo
 - give preference to NEW insta photos
 - fix fireworks video
-- update ava photos
 - pick sensible delays...
-
+- fix auction slide rotation bug
 
 # on the night
 - disable screensaver / notifications
 - pack charger, dongle, dvi connector (spare mac + Carole's mac?)
 - disable password
 - add name / number to laptop
-- add static 'Avas Gala' page & share with Michael
+- add static 'Avas Gala' page & share with
 - Saturday from 1pm
-
-```
-  ____              _       _           _   _
- |  _ \            | |     | |         | | | |
- | |_) | __ _ _ __ | | __  | |_ ___    | |_| |__   ___
- |  _ < / _` | '_ \| |/ /  | __/ _ \   | __| '_ \ / _ \
- | |_) | (_| | | | |   <   | || (_) |  | |_| | | |  __/
- |____/ \__,_|_| |_|_|\_\   \__\___/    \__|_| |_|\___|
-      __
-      \ \        ________  __________  ______  ______
-  _____\ \      / ____/ / / /_  __/ / / / __ \/ ____/
- |______> >    / /_  / / / / / / / / / / /_/ / __/
-       / /    / __/ / /_/ / / / / /_/ / _, _/ /__
-      /_/    /_/    \____/ /_/  \____/_/ |_/_____/
-
-                               - Hackathon 2017 -
-```
+- no new donations on the night!
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
